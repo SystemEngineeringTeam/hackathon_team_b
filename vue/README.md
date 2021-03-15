@@ -17,3 +17,6 @@ yarn build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 追加した物
+tailwind,vuetify,boostrap vue,router,vuex
