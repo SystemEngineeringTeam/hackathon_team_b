@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"with_b/db"
 )
 
 //Test はテストする関数
@@ -17,8 +18,10 @@ func Lectures(w http.ResponseWriter,r *http.Request){
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE") // Allowed methods.
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 
+
 	//Get
 	if r.Method==http.MethodGet{
+
 	}
 
 

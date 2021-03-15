@@ -1,6 +1,8 @@
 package db
 
 import (
+	"database/sql"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -18,10 +20,15 @@ type Recture struct{
 
 func CallRectures(grade string,department string,semester string,dayofWeek string,time string,teacher string,lectureName string)([]Recture,error){
 
-
+	db, err := sql.Open("mysql", "root@/go_lang")
+    if err != nil {
+        
+    }
+	defer db.Close()
 
 	//空の構造体のスライスを作成
 	Rectures:=make([]Recture,0,0)
+
 
 
 
