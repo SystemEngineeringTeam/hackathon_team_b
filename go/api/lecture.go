@@ -2,10 +2,8 @@ package api
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 	"with_b/db"
 )
 
@@ -29,15 +27,17 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
+	//lecture?grade="3"&department="kk"
 	//クエリパラメータ
 	params := r.URL.Query()
-	params.Add("userId", "1")
+	params.Add("grade", "3")
+	params.Add("department", "kk")
+	fmt.Println(params["grade"][0])
+	fmt.Println(params["department"][0])
 
-	fmt.Println(r.URL.String())
-	}
+}
 
-	//Get
-	if r.Method == http.MethodGet {
+//Get
+// if r.Method == http.MethodGet {
 
-	}
-
+// }
