@@ -5,9 +5,9 @@ import (
 	"with_b/api"
 )
 
-func main()  {
+func main() {
 	api.Test()
 
-	http.HandleFunc("/lecture",api.Lectures)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/lecture", api.Lectures)
+	http.ListenAndServe(":8080", nil)
 }
