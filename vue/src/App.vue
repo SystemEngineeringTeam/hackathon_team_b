@@ -1,60 +1,49 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+  <div id="app">
+    <nav class="nav flex flex-wrap items-center justify-between px-4">
+      <div class="flex flex-no-shrink items-center mr-6 py-3">
+        <router-link to="/">
+          <p
+            class="font-semibold text-2xl tracking-tight no-underline hover:no-underline"
+          >
+            {{ topPageName }}
+          </p>
+        </router-link>
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+      <ul class="md:border-none flex justify-end m-0 w-full md:w-auto">
+        <li class="border-t md:border-none">
+          <router-link to="/">
+            <a
+              class="block md:inline-block px-4 py-3 hover:text-red-400 no-underline hover:no-underline"
+              >{{ homeVueName }}</a
+            >
+          </router-link>
+        </li>
+        <li class="border-t md:border-none">
+          <router-link to="/search">
+            <a
+              class="block md:inline-block px-4 py-3 hover:text-red-400 no-underline hover:no-underline"
+              >{{ searchVueName }}</a
+            >
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      topPageName: "hackathon_team_b",
+      homeVueName: "ボタン検索",
+      searchVueName: "キーワード検索",
+    };
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
+
+<style>
+</style>
