@@ -41,11 +41,6 @@ func CallRectures()([]Recture,error){
 	te:="高木"
 	le:="日本"
 
-	if gr==""{
-		if de==""{
-
-		}
-	}
 
 
 	//Queryを使えば複数のレコードを取得できる
@@ -83,7 +78,7 @@ func CallRectures()([]Recture,error){
 		//スライスに追加
 		Rectures=append(Rectures,tmpRecture)
 	}
-
+	fmt.Println(test)
 	fmt.Println(Rectures)
 
 	return Rectures,nil
