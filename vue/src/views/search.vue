@@ -1,9 +1,7 @@
 <template>
-<div>
-    <h1>
-        サーチ
-    </h1>
-</div>
+  <div>
+    <v-text-field label="Another input"></v-text-field>
+  </div>
 </template>
 
 <script>
