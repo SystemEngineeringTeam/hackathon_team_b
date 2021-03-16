@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <v-container class="mt-6">
+      <!-- 最大画面の表示は正常だが、中画面〜スマホサイズのレスポンシブは最悪
+      側だけと最大画面の表示で正常な処理ができれば、後からでもレスポンシブは変えれるので
+      今は処理が出来ることを目指す。
+      -->
       <v-row class="grey lighten-3" style="height: 200px">
         <v-col
           cols="12"
