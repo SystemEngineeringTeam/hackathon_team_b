@@ -19,6 +19,7 @@ type Recture struct{
 	LectureName string `json:"lectureName"`
 	ReviewStarAverage int `json:"reviewStarAverage"`
 	IndexNumber int `json:"indexNumber"`
+
 }
 
 //grade string,department string,semester string,dayofWeek string,time string,teacher string,lectureName string
@@ -31,15 +32,21 @@ func CallRectures()([]Recture,error){
     }
 	defer db.Close()
 
+	//条件に合うものを取得する
+	gr:="1"
+	de:="kk"
+	sem:="前期"
+	day:="月曜"
+	ti:="3限"
+	te:="高木"
+	le:="日本"
+
 	//Queryを使えば複数のレコードを取得できる
-	rows, err := db.Query("SELECT * FROM rectures")
+	rows,err := db.Query("SELECT * FROM rectures WHERE grade=? AND department=? AND semester=? AND dayofweek=? AND time=? AND teacher like '%'||?||'%' AND lectureName like '%'||?||'%'",gr,de,sem,day,ti,te,le)
     defer rows.Close()
     if err != nil {
         log.Println(err)
     }
-
-
-	log.Println(rows)
 
 	//空の構造体のスライスを作成
 	Rectures:=make([]Recture,0,0)
@@ -58,6 +65,7 @@ func CallRectures()([]Recture,error){
 		if err:=rows.Scan(&grade,&department,&semester,&dayofweek,&time,&teacher,&lectureName,&reviewStarAverage,&indexNumber);err!=nil{
 			log.Print(err)
 		}
+
 		//構造体に格納
 		tmpRecture:=Recture{grade,department,semester,dayofweek,time,teacher,lectureName,reviewStarAverage,indexNumber}
 
@@ -66,7 +74,6 @@ func CallRectures()([]Recture,error){
 	}
 
 	fmt.Println(Rectures)
-
 
 	return Rectures,nil
 }
