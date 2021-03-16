@@ -19,8 +19,7 @@ func Lectures(w http.ResponseWriter,r *http.Request){
 
 	//Get
 	if r.Method==http.MethodGet{
-
-
+		
 	}
 
 
