@@ -75,6 +75,10 @@ func CallRectures()([]Recture,error){
 
 	fmt.Println(Rectures)
 
+	fmt.Println("apitest")
+
+
+
 	return Rectures,nil
 }
 
