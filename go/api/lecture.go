@@ -21,6 +21,12 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE") // Allowed methods.
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 
+	url := "https://jsonplaceholder.typicode.com/todos"
+
+	r, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 	//クエリパラメータ
 	params := r.URL.Query()
 	// params.Add("grade", "3")
@@ -53,13 +59,6 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 		//stringに変換
 		stringrecs := string(recBytes)
 		fmt.Fprintln(w, stringrecs)
-	}
-
-	url := "https://jsonplaceholder.typicode.com/todos"
-
-	r, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		log.Fatal(err)
 	}
 
 	//lecture?grade="3"&department="kk"
