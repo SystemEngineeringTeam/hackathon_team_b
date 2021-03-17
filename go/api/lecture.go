@@ -29,10 +29,10 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 	}
 	//クエリパラメータ
 	params := r.URL.Query()
-	params.Add("grade", "3")
-	params.Add("department", "kk")
-	fmt.Println(params["grade"][0])
-	fmt.Println(params["department"][0])
+	// params.Add("grade", "3")
+	// params.Add("department", "kk")
+	// fmt.Println(params["grade"][0])
+	// fmt.Println(params["department"][0])
 	// fmt.Println(params)
 
 	//Get
