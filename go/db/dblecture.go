@@ -19,12 +19,12 @@ type Recture struct{
 	Time string `json:"time"`
 	Teacher string `json:"teacher"`
 	LectureName string `json:"lectureName"`
-	ReviewStarAverage int `json:"reviewStarAverage"`
-	IndexNumber int `json:"indexNumber"`
+	ReviewStarAverage string `json:"reviewStarAverage"`
+	IndexLectureNumber int `json:"indexLectureNumber"`
 
 }
 
-//grade string,department string,semester string,dayofWeek string,time string,teacher string,lectureName string
+//grad string,departmen string,semeste string,dayofWee string,tim string,teache string,lectureNam string
 //CallRectures は講義の内容を呼び出す
 func CallRectures()([]Recture,error){
 
@@ -43,8 +43,10 @@ func CallRectures()([]Recture,error){
 	te:="高木"
 	le:="日本"
 
+
+
 	//Queryを使えば複数のレコードを取得できる
-	rows,err := db.Query("SELECT * FROM rectures WHERE grade=? AND department=? AND semester=? AND dayofweek=? AND time=? AND teacher like '%'||?||'%' AND lectureName like '%'||?||'%'",gr,de,sem,day,ti,te,le)
+	rows,err := db.Query("SELECT * FROM lectures WHERE grade=? AND department=? AND semester=? AND dayofweek=? AND time=? AND teacher like '%'||?||'%' AND lectureName like '%'||?||'%'",gr,de,sem,day,ti,te,le)
     defer rows.Close()
     if err != nil {
         log.Println(err)
@@ -52,6 +54,7 @@ func CallRectures()([]Recture,error){
 
 	//空の構造体のスライスを作成
 	Rectures:=make([]Recture,0,0)
+
 
 	for rows.Next(){
 		var grade string
@@ -61,22 +64,32 @@ func CallRectures()([]Recture,error){
 		var time string
 		var teacher string
 		var lectureName string
-		var reviewStarAverage int
-		var indexNumber int
+		var indexLectureNumber int
 
-		if err:=rows.Scan(&grade,&department,&semester,&dayofweek,&time,&teacher,&lectureName,&reviewStarAverage,&indexNumber);err!=nil{
-			log.Print(err)
+
+		if err:=rows.Scan(&grade,&department,&semester,&dayofweek,&time,&teacher,&lectureName,&indexLectureNumber);
+		err!=nil{
+			log.Println(err)
+		}
+
+		reviewStarAverage,err:=CalculateStarAvarage(indexLectureNumber)
+		if err!=nil{
+			log.Println(err)
 		}
 
 		//構造体に格納
-		tmpRecture:=Recture{grade,department,semester,dayofweek,time,teacher,lectureName,reviewStarAverage,indexNumber}
+		tmpRecture:=Recture{grade,department,semester,dayofweek,time,teacher,lectureName,reviewStarAverage,indexLectureNumber}
 
 		//スライスに追加
 		Rectures=append(Rectures,tmpRecture)
 	}
 
+
 	fmt.Println(Rectures)
 
 	return Rectures,nil
 }
+
+
+//関数化
 

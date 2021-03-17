@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"strings"
-	"with_b/db"
 )
 
 //Test はテストする関数
@@ -23,34 +22,34 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 
 	//クエリパラメータ
 	params := r.URL.Query()
-	// params.Add("grade", "3")
-	// params.Add("department", "kk")
-	// fmt.Println(params["grade"][0])
-	// fmt.Println(params["department"][0])
-	// fmt.Println(params)
+	params.Add("grade", "3")
+	params.Add("department", "kk")
+	fmt.Println(params["grade"][0])
+	fmt.Println(params["department"][0])
+	fmt.Println(params)
 
 	//Get
 	if r.Method == http.MethodGet {
 
 
-		//エラー処理
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+		// エラー処理
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
 
-		//byte型に変換する
-		recBytes, err := json.Marshal(recs)
+		// byte型に変換する
+		// recBytes, err := json.Marshal(recs)
 
-		//エラー処理
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+		// エラー処理
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
 
-		//stringに変換
-		stringrecs := string(recBytes)
-		fmt.Fprintln(w, stringrecs)
+		// stringに変換
+		// stringrecs := string(recBytes)
+		// fmt.Fprintln(w, stringrecs)
 	}
 
 	url := "https://jsonplaceholder.typicode.com/todos"
