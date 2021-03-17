@@ -8,29 +8,42 @@ export default new Vuex.Store({
   state: {
     lectures: [
       {
-        Grade: "",
+        grade: "",
+        semester: "",
         Department: "",
-        Semester: "",
-        Time: "",
-        Teacher: "",
-        LectureName: "",
+        dayofweek: "",
+        time: "",
+        teacher: "",
+        lectureName: "",
+      },
+    ],
+    getLectureList: [
+      {
+        Department: "",
+        semester: "",
+        dayofweek: "",
+        time: "",
+        teacher: "",
+        lectureName: "",
+        grade: "",
+        reviewStarAverage: "",
+        index: "",
       },
     ],
   },
+
   mutations: {
-    setLecture(state, Grade, Department, Semester, Time, Teacher, LectureName) {
-      state.Grade = Grade;
-      state.Department = Department;
-      state.Semester = Semester;
-      state.Time = Time;
-      state.Teacher = Teacher;
-      state.LectureName = LectureName;
+    setALecture(state, lecture) {
+      state.lectures[0] = lecture;
+    },
+    setGetterLectureList(state, lectureList) {
+      state.getLectureList[0] = lectureList;
     },
   },
 
   actions: {
-    setLecture(context,Grade,Department,Semester,Time,Teacher,LectureName){
-      context.commit("setLecture",Grade,Department,Semester,Time,Teacher,LectureName)
+    setLecture(context, lecture) {
+      context.commit("setALecture", lecture);
     },
     async postLecture(context) {
       await axios
@@ -47,6 +60,7 @@ export default new Vuex.Store({
       await axios
         .get(process.env.VUE_APP_API_LECTURE)
         .then((res) => {
+          context.commit("setGetterLectureList", res.data);
           console.log(res.data);
         })
         .catch(() => {

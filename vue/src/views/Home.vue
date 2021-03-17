@@ -227,8 +227,8 @@ export default {
         { value: "コンピュータシステム専攻", text: "コンピュータシステム専攻" },
         { value: "メディア情報専攻", text: "メディア情報専攻" },
       ],
-      teacherText: "",
-      lectureName: "",
+      teacherText: null,
+      lectureName: null,
       loader: null,
       loading: false,
     };
@@ -243,15 +243,15 @@ export default {
   },
   methods: {
     Clicksubmit: function () {
-      this.$store.dispatch(
-        "setLecture",
-        this.gradeSelected,
-        this.departmentSelected,
-        this.semester,
-        this.timeSelected,
-        this.teacherText,
-        this.LectureName
-      );
+      this.$store.dispatch("setLecture", {
+        grade: this.gradeSelected,
+        semester: this.semester,
+        Department: this.DepartmentSelected,
+        dayofweek: this.dayofweekSelected,
+        time: this.timeSelected,
+        teacher: this.teacherText,
+        lectureName: this.lectureName,
+      });
     },
   },
 };
