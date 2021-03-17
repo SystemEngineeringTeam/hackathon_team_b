@@ -18,7 +18,7 @@ type Recture struct{
 	Teacher string `json:"teacher"`
 	LectureName string `json:"lectureName"`
 	ReviewStarAverage string `json:"reviewStarAverage"`
-	indexLectureNumber int `json:"indexLectureNumber"`
+	IndexLectureNumber int `json:"indexLectureNumber"`
 
 }
 

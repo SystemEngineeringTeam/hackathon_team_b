@@ -35,7 +35,7 @@ func CallReview(indexLectureNumber int)([]ReviewDetail,error)  {
 		return nil,err
     }
 
-	 ReviewDetails:=make([]ReviewDetail,0,0)
+	ReviewDetails:=make([]ReviewDetail,0,0)
 
 
 	for rows.Next(){
@@ -108,29 +108,21 @@ func CalculateStarAvarage(indexLectureNumber int)(string,error){
 
 
 //RegisterReview はレビューを登録する
-// func RegisterReview(indexLectureNumber int){
+func RegisterReview(indexLectureNumber int){
 
-// 	db, err := sql.Open("mysql", "root@/with_b")
-//     if err != nil {
-//         log.Println(err)
-//     }
-// 	defer db.Close()
+	db, err := sql.Open("mysql", "root@/with_b")
+    if err != nil {
+        log.Println(err)
+    }
+	defer db.Close()
 
-// 	_,err=db.Exec("INSERT INTO reviews VALUES ('1','5','簡単')")
+	_,err=db.Exec("INSERT INTO reviews (indexLectureNumber,reviewStar,sentence) VALUES ('1','5','hogehogegehoge')")
 
-// 	if err != nil {
-//         log.Println(err)
-//     }
+	if err != nil {
+        log.Println(err)
+    }
 
-// 	rows,err:=db.Query("SELECT ")
-
-
-// 	if err!=nil{
-// 		log.Print(err)
-// 	}
-
-
-// }
+}
 
 
 
