@@ -6,9 +6,7 @@ import (
 	"with_b/db"
 )
 
-
-
-func main()  {
+func main() {
 	api.Test()
 
 
@@ -17,6 +15,6 @@ func main()  {
 	// db.CalculateStarAvarage(1)
 	db.RegisterReview(1)
 
-	http.HandleFunc("/lecture",api.Lectures)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/lecture", api.Lectures)
+	http.ListenAndServe(":8080", nil)
 }
