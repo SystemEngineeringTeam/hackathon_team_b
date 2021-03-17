@@ -18,11 +18,20 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
-    setGrade(state, grade) {
-      state.lectures.Grade = grade;
+    setLecture(state, Grade, Department, Semester, Time, Teacher, LectureName) {
+      state.Grade = Grade;
+      state.Department = Department;
+      state.Semester = Semester;
+      state.Time = Time;
+      state.Teacher = Teacher;
+      state.LectureName = LectureName;
     },
   },
+
   actions: {
+    setLecture(context,Grade,Department,Semester,Time,Teacher,LectureName){
+      context.commit("setLecture",Grade,Department,Semester,Time,Teacher,LectureName)
+    },
     async postLecture(context) {
       await axios
         .post(
@@ -31,15 +40,17 @@ export default new Vuex.Store({
         )
         .then(() => {})
         .catch(() => {
-          console.log("lectureのpostに失敗しました🥺");
+          console.log("lectureのpostに失敗しました");
         });
     },
     async getLecture(context) {
       await axios
         .get(process.env.VUE_APP_API_LECTURE)
-        .then((res) => {})
+        .then((res) => {
+          console.log(res.data);
+        })
         .catch(() => {
-          console.log("lectureのgetに失敗しました🥺");
+          console.log("lectureのgetに失敗しました");
         });
     },
   },

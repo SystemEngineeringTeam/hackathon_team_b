@@ -164,6 +164,14 @@
       >
         Accept Terms
       </v-btn>
+      <v-btn
+        class="ma-2"
+        :loading="loading"
+        :disabled="loading"
+        @click="Clicksubmit()"
+      >
+        Accept Terms
+      </v-btn>
     </div>
   </div>
 </template>
@@ -231,6 +239,19 @@ export default {
       this[l] = !this[l];
       setTimeout(() => (this[l] = false), 1500);
       this.loader = null;
+    },
+  },
+  methods: {
+    Clicksubmit: function () {
+      this.$store.dispatch(
+        "setLecture",
+        this.gradeSelected,
+        this.departmentSelected,
+        this.semester,
+        this.timeSelected,
+        this.teacherText,
+        this.LectureName
+      );
     },
   },
 };
