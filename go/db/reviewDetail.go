@@ -10,6 +10,7 @@ import (
 )
 
 type ReviewDetail struct{
+	IndexLectureNumber int `json:"indexLectureNumber"`
 	ReviewStar int `json:"department"`
 	Contents string `json:"contents"`
 }
@@ -50,7 +51,7 @@ func CallReview(indexLectureNumber int)([]ReviewDetail,error)  {
 			return nil,err
 		}
 
-		tmpReview:=ReviewDetail{star,contents}
+		tmpReview:=ReviewDetail{indexLectureNumber,star,contents}
 
 		ReviewDetails=append(ReviewDetails,tmpReview)
 	}
