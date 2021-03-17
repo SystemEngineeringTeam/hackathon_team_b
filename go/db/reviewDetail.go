@@ -109,11 +109,12 @@ func CalculateStarAvarage(indexLectureNumber int)(string,error){
 
 
 //RegisterReview はレビューを登録する
-func RegisterReview(indexLectureNumber int){
+func RegisterReview([]ReviewDetail)(error){
 
 	db, err := sql.Open("mysql", "root@/with_b")
     if err != nil {
         log.Println(err)
+		return err
     }
 	defer db.Close()
 
@@ -121,8 +122,10 @@ func RegisterReview(indexLectureNumber int){
 
 	if err != nil {
         log.Println(err)
+		return err
     }
 
+	return nil
 }
 
 
