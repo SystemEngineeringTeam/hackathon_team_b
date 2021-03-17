@@ -16,7 +16,6 @@ type ReviewDetail struct{
 }
 
 
-
 //CallReview はレビューの構造体のスライスを返す
 func CallReview(indexLectureNumber int)([]ReviewDetail,error)  {
 
@@ -37,7 +36,6 @@ func CallReview(indexLectureNumber int)([]ReviewDetail,error)  {
     }
 
 	ReviewDetails:=make([]ReviewDetail,0,0)
-
 
 	for rows.Next(){
 

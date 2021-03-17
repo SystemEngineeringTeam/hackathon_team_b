@@ -1,14 +1,27 @@
 CREATE DATABASE IF NOT EXISTS with_b;
 USE with_b;
 create table if not exists lectures
-(grade varchar(10),department varchar(10),semester varchar(10)
-,dayofweek varchar(10),time varchar(10),teacher varchar(20)
-,lectureName varchar(20),indexLectureNumber int);
+(department varchar(10),semester varchar(10)
+,dayofweek varchar(10),timed varchar(10),teacher varchar(20)
+,lectureName varchar(20),indexLectureNumber INT AUTO_INCREMENT,PRIMARY KEY (indexLectureNumber));
 
-insert into lectures values ('1', 'kk','前期','月曜','3限','高木健太郎','日本国憲法',1);
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','前期','月曜','3限','高木健太郎','日本国憲法');
+
+
+create table if not exists grade
+(grade varchar(10),indexLectureNumber INT);
+
+insert into grade values (1,1);
+insert into grade values (2,1);
+insert into grade values (3,1);
+insert into grade values (4,1);
+insert into grade values (3,2);
+insert into grade values (4,2);
+
+
+
+
 insert into lectures values ('1', 'kk','後期','火曜','4限','中村','情報数学',2);
-
-
 
 create table if not exists reviews
 (indexLectureNumber int,reviewStar int,sentence varchar(100),id INT AUTO_INCREMENT,PRIMARY KEY (id));

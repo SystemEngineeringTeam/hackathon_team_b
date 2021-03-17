@@ -32,22 +32,22 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 
 
-		// エラー処理
+		// //エラー処理
 		// if err != nil {
 		// 	fmt.Println(err)
 		// 	return
 		// }
 
-		// byte型に変換する
+		// //byte型に変換する
 		// recBytes, err := json.Marshal(recs)
 
-		// エラー処理
+		// //エラー処理
 		// if err != nil {
 		// 	fmt.Println(err)
 		// 	return
 		// }
 
-		// stringに変換
+		// //stringに変換
 		// stringrecs := string(recBytes)
 		// fmt.Fprintln(w, stringrecs)
 	}
