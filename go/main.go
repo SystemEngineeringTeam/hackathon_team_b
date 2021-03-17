@@ -6,10 +6,10 @@ import (
 	"with_b/db"
 )
 
-func main()  {
+func main() {
 	api.Test()
 	db.CallRectures()
 
-	http.HandleFunc("/lecture",api.Lectures)
-	http.ListenAndServe(":8080",nil)
+	http.HandleFunc("/lecture", api.Lectures)
+	http.ListenAndServe(":8080", nil)
 }
