@@ -32,8 +32,6 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 	//Get
 	if r.Method == http.MethodGet {
 
-		//recsは構造体のスライス
-		recs, err := db.CallRectures(params["grade"][0], params["department"][0], params["semester"][0], params["dayofWeek"][0], params["time"][0], params["teacher"][0], params["lectureName"][0])
 
 		//エラー処理
 		if err != nil {
