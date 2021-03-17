@@ -164,6 +164,14 @@
       >
         Accept Terms
       </v-btn>
+      <v-btn
+        class="ma-2"
+        :loading="loading"
+        :disabled="loading"
+        @click="Clicksubmit()"
+      >
+        Accept Terms
+      </v-btn>
     </div>
   </div>
 </template>
@@ -219,8 +227,8 @@ export default {
         { value: "コンピュータシステム専攻", text: "コンピュータシステム専攻" },
         { value: "メディア情報専攻", text: "メディア情報専攻" },
       ],
-      teacherText: "",
-      lectureName: "",
+      teacherText: null,
+      lectureName: null,
       loader: null,
       loading: false,
     };
@@ -231,6 +239,19 @@ export default {
       this[l] = !this[l];
       setTimeout(() => (this[l] = false), 1500);
       this.loader = null;
+    },
+  },
+  methods: {
+    Clicksubmit: function () {
+      this.$store.dispatch("setLecture", {
+        grade: this.gradeSelected,
+        semester: this.semester,
+        Department: this.DepartmentSelected,
+        dayofweek: this.dayofweekSelected,
+        time: this.timeSelected,
+        teacher: this.teacherText,
+        lectureName: this.lectureName,
+      });
     },
   },
 };

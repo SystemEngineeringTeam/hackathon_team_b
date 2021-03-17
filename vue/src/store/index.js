@@ -8,21 +8,43 @@ export default new Vuex.Store({
   state: {
     lectures: [
       {
-        Grade: "",
+        grade: "",
+        semester: "",
         Department: "",
-        Semester: "",
-        Time: "",
-        Teacher: "",
-        LectureName: "",
+        dayofweek: "",
+        time: "",
+        teacher: "",
+        lectureName: "",
+      },
+    ],
+    getLectureList: [
+      {
+        Department: "",
+        semester: "",
+        dayofweek: "",
+        time: "",
+        teacher: "",
+        lectureName: "",
+        grade: "",
+        reviewStarAverage: "",
+        index: "",
       },
     ],
   },
+
   mutations: {
-    setGrade(state, grade) {
-      state.lectures.Grade = grade;
+    setALecture(state, lecture) {
+      state.lectures[0] = lecture;
+    },
+    setGetterLectureList(state, lectureList) {
+      state.getLectureList[0] = lectureList;
     },
   },
+
   actions: {
+    setLecture(context, lecture) {
+      context.commit("setALecture", lecture);
+    },
     async postLecture(context) {
       await axios
         .post(
@@ -31,15 +53,18 @@ export default new Vuex.Store({
         )
         .then(() => {})
         .catch(() => {
-          console.log("lectureのpostに失敗しました🥺");
+          console.log("lectureのpostに失敗しました");
         });
     },
     async getLecture(context) {
       await axios
         .get(process.env.VUE_APP_API_LECTURE)
-        .then((res) => {})
+        .then((res) => {
+          context.commit("setGetterLectureList", res.data);
+          console.log(res.data);
+        })
         .catch(() => {
-          console.log("lectureのgetに失敗しました🥺");
+          console.log("lectureのgetに失敗しました");
         });
     },
   },
