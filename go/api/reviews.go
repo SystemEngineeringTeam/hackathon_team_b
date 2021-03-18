@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"strconv"
 	"with_b/db"
 )
 
@@ -16,9 +18,35 @@ func Review(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE") // Allowed methods.
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 
-	// if r.Method==http.MethodGet{
+	url := ""
+	r, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// }
+	params := r.URL.Query()
+
+	if r.Method == http.MethodGet {
+		var params_int int
+		params_int, _ = strconv.Atoi(params["indexLectureNumber"][0])
+		//reviewsは構造体のスライス
+		reviews, err := db.CallReview(params_int)
+		//エラー処理
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		//構造体からJSON文字列への変換する
+		reviewsBytes, err := json.Marshal(reviews)
+		//エラー処理
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		//stringに変換
+		reviewsString := string(reviewsBytes)
+		fmt.Fprintln(w, reviewsString)
+	}
 
 	// var body = []byte(`[
 	//     {"Name": "Platypus", "Order": "Monotremata",sentence:"soufasfaof"},
