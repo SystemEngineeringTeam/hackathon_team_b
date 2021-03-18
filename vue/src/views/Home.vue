@@ -268,9 +268,10 @@ export default {
             this.$store.state.p.lectures[0].lectureName
         )
         .then((res) => {
+          console.log(res)
           //console.log(res.data);
           //console.log(res.data[0].grade)
-          console.log(this.$store.state.g.getLectureList.length);
+          console.log(res.data.length);
           for(var i=0 ;i<this.$store.state.g.getLectureList.length;i++){
             this.$store.state.g.getLectureList[i].grade=res.data[i].grade
             this.$store.state.g.getLectureList[i].Department=res.data[i].Department

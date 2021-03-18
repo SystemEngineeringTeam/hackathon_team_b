@@ -27,7 +27,7 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 
 		// lectures,err:=db.CallRectures(params["grade"][0],params["department"][0],params["semester"][0],params["dayofweek"][0],params["time"][0],params["teacher"][0],params["lectureName"][0])
 
-		lectures, err := db.CallRectures("", "", "", "", "", "高木", "日本")
+		lectures, err := db.CallRectures("", "", "", "", "", "", "")
 
 		// http://localhost:8080/lecture?grade=1&"department=kk&semester=前期&dayofweek=月曜&time=３限&teacher=高木&lectureName=日本
 
@@ -36,15 +36,12 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 			return
 		}
-
 		recBytes, err := json.Marshal(lectures)
-
 		//エラー処理
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-
 		//stringに変換
 		stringrecs := string(recBytes)
 		fmt.Fprintln(w, stringrecs)
