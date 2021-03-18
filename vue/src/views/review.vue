@@ -1,29 +1,32 @@
 <template>
+<div>
   <v-app>
-    <v-card class="mx-auto m-6" min-width="300" max-width="700">
-      <v-card-title>愛工大の匿名学生</v-card-title>
-      <v-card-text>
-        <v-row align="center" class="mx-0">
-          <v-rating
-            :value="4.5"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="14"
-          ></v-rating>
-
-          <div class="grey--text ml-4">4.5</div>
-        </v-row>
-
-        <div class="my-4 subtitle-1"></div>
-        <div>
-          aaaaaaaaaaaaあさsかだlksだklんdぁkんかんfkぁんkぁwんヵwんfかlwんfかlf
-        </div>
-      </v-card-text>
-
-      <v-divider class="mx-4"></v-divider>
-    </v-card>
+    <ul>
+      <li v-for="review,i in $store.state.r.reviewList" :key="i">
+        <v-card class="mx-auto m-6" min-width="300" max-width="700">
+          <v-card-title>名無しさん</v-card-title>
+          <p>{{review.sentence}}</p>
+          <v-card-text>
+            <v-row align="center" class="mx-0">
+              <v-rating
+                :value="review.reviewStar"
+                color="amber"
+                dense
+                half-increments
+                readonly
+                size="14"
+              ></v-rating>
+              <div class="grey--text ml-4">{{review.reviewStar}}</div>
+            </v-row>
+          <div class="my-4 subtitle-1"></div>
+          <div>
+            {{ review.sentence }}
+          </div>
+        </v-card-text>
+        <v-divider class="mx-4"></v-divider>
+        </v-card>
+      </li>
+    </ul>
     <!-- ここからレビュー投稿-->
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
@@ -57,7 +60,7 @@
                 </v-col>
               </v-row>
             </v-container>
-            <small>*が入ってる項目は必須入力です。</small>
+            <small>*が入ってる項目は必須入力です</small>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -77,6 +80,7 @@
     </v-row>
     <!-- ここまでレビュー投稿-->
   </v-app>
+  </div>
 </template>
 
 <script>
@@ -98,12 +102,12 @@ export default {
         .post("http://localhost:3030/review", {
           IndexLectureNumber: this.$store.state.r.reviewList[0]
             .indexLectureNumber,
-          ReviewStar: this.slider,
+          ReviewStar: this.reviewStar,
           sentence: this.text,
         })
         .then((res) => {
           console.log(res);
-          console.log("unko");
+          //console.log("unko");
         })
         .catch(function (error) {
           console.log(error);

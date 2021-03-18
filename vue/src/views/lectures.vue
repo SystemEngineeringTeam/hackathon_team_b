@@ -2,10 +2,9 @@
   <div>
     <v-app>
       <ul>
-        <li v-for="Lists in $store.state.g.getLectureList" :key="Lists">
+        <li v-for="Lists,i in $store.state.g.getLectureList" :key="i">
           <template>
             <v-card
-              :loading="loading"
               class="mx-auto my-12"
               min-width="500"
               max-width="700"
