@@ -56,17 +56,17 @@
 import axios from "axios";
 export default {
   methods: {
-    reviewDetail(index) {
+    reviewDetail:function(index) {
       axios
         .get(
-          "http://localhost:3030/review?=" +
+          "http://localhost:3030/review?indexLectureNumber=" +
             this.$store.state.g.getLectureList[index].indexLectureNumber
         )
         .then((res) => {
           console.log(res.data);
           console.log(res.data.length);
           this.$store.commit("removeReviewList");
-          this.$store.commit("addReviewList", res.data);
+          this.$store.commit("GetReviewList", res.data);
           this.$router.push("/review");
         })
         .catch(function (error) {

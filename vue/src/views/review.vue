@@ -1,27 +1,115 @@
 <template>
-<h1>
-  セックスシコシコ
-</h1>
+  <v-app>
+    <v-card class="mx-auto m-6" min-width="300" max-width="700">
+      <v-card-title>愛工大の匿名学生</v-card-title>
+      <v-card-text>
+        <v-row align="center" class="mx-0">
+          <v-rating
+            :value="4.5"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14"
+          ></v-rating>
+
+          <div class="grey--text ml-4">4.5</div>
+        </v-row>
+
+        <div class="my-4 subtitle-1"></div>
+        <div>
+          aaaaaaaaaaaaあさsかだlksだklんdぁkんかんfkぁんkぁwんヵwんfかlwんfかlf
+        </div>
+      </v-card-text>
+
+      <v-divider class="mx-4"></v-divider>
+    </v-card>
+    <!-- ここからレビュー投稿-->
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="primary" dark class="m-6" v-bind="attrs" v-on="on">
+            この講義へのレビュー
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="headline">レビュー投稿</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    label="TextArea*"
+                    v-model="text"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12"> </v-col>
+                <v-col cols="12" sm="6">
+                  <v-select
+                    :items="[1, 2, 3, 4, 5]"
+                    label="Star*"
+                    required
+                    v-model="reviewStar"
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*が入ってる項目は必須入力です。</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">
+              cansel
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="(dialog = false), registerReview(), consoleunko()"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+    <!-- ここまでレビュー投稿-->
+  </v-app>
 </template>
 
 <script>
 export default {
-  /*
-  registerReview() {
-    axios
-      .post("http://localhost:3030/review", {
-        IndexLectureNumber: 4,
-        ReviewStar: 5,
-        sentence: "登録完了",
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  data() {
+    return {
+      reviewStar: null,
+      text: "",
+      dialog: false,
+    };
   },
-  */
+  methods: {
+    consoleunko() {
+      console.log(this.text);
+      console.log(this.reviewStar);
+    },
+    registerReview() {
+      axios
+        .post("http://localhost:3030/review", {
+          IndexLectureNumber: this.$store.state.r.reviewList[0]
+            .indexLectureNumber,
+          ReviewStar: this.slider,
+          sentence: this.text,
+        })
+        .then((res) => {
+          console.log(res);
+          console.log("unko");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

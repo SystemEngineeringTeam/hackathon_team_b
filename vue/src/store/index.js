@@ -73,13 +73,16 @@ const getData = {
 
 const reviewData = {
   state: {
-    reviewList: {
-      reviewStar: "",
-      review: "",
-    },
+    reviewList: [
+      {
+        indexLectureNumber: "",
+        reviewStar: "",
+        sentence: "",
+      },
+    ],
   },
   mutations: {
-    addReviewList(state, review) {
+    GetReviewList(state, review) {
       state.reviewList.push(review);
     },
     removeReviewList(state) {
