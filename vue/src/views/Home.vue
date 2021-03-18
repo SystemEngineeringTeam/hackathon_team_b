@@ -183,8 +183,6 @@ export default {
       semester: null,
       gradeSelected: null,
       gradeOptions: [
-
-        
         { value: null, text: "Please select an option" },
         { value: "1年", text: "1年" },
         { value: "2年", text: "2年" },
