@@ -43,8 +43,6 @@
             </div>
           </b-card>
         </v-col>
-      </v-row>
-      <v-row class="lighten-3" style="height: 200px">
         <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">曜日</p>
@@ -86,8 +84,6 @@
             </div>
           </b-card>
         </v-col>
-      </v-row>
-      <v-row class="lighten-3" style="height: 200px">
         <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">科目名</p>
@@ -105,17 +101,17 @@
             </div>
           </b-card>
         </v-col>
+        <v-btn
+      depressed
+      @click="Clicksubmit(), lectureGetParams()"
+      color="primary"
+    >
+      検索
+    </v-btn>
       </v-row>
+
     </v-container>
     <div class="float-right m-10">
-      <v-btn
-        class="ma-2"
-        :loading="loading"
-        :disabled="loading"
-        @click="Clicksubmit(), lectureGetParams()"
-      >
-        検索
-      </v-btn>
       <!-- <button @click="urlpush()">push</button> -->
     </div>
     </v-app>
@@ -221,7 +217,7 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          console.log(res.data.length);
+          // console.log(res.data.length);
           this.$store.commit("removeLectureList");
 
           for (var i = 0; i < res.data.length; i++) {

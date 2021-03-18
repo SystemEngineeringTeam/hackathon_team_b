@@ -56,7 +56,7 @@ const getData = {
         teacher: "",
         lectureName: "",
         grade: "",
-        reviewStarAverage: "",
+        reviewStarAverage: 1,
         indexLectureNumber: "",
       },
     ],
@@ -73,14 +73,21 @@ const getData = {
 
 const reviewData = {
   state: {
-    reviewList: {
-      reviewStar: "",
-      review: "",
-    },
+    reviewList: [
+      {
+        indexLectureNumber: "",
+        reviewStar: "",
+        sentence: "",
+      },
+    ],
   },
   mutations: {
-    addReviewList(state, review) {
-      state.reviewList.push(review);
+    //reviewsが配列
+    GetReviewList(state, reviews) {
+      for (var i = 0;i < reviews.length; i++){
+        state.reviewList.push(reviews[i])
+      }
+      // state.reviewList=review;
     },
     removeReviewList(state) {
       state.reviewList.splice(0);

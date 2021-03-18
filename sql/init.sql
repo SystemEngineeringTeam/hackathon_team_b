@@ -54,10 +54,6 @@ insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) v
 
 
 
-
-
-
-
 create table if not exists grade
 (grade varchar(10),indexLectureNumber INT);
 
@@ -84,6 +80,8 @@ insert into grade values (3,10);
 insert into grade values (4,10);
 insert into grade values (3,11);
 insert into grade values (4,11);
+
+
 insert into grade values (3,12);
 insert into grade values (3,12);
 insert into grade values (2,13);
@@ -175,13 +173,6 @@ insert into grade values (4,44);
 
 
 
-
-
-
-
-
-
-
 create table if not exists reviews
 (indexLectureNumber int,reviewStar int,sentence varchar(100),id INT AUTO_INCREMENT,PRIMARY KEY (id));
 
@@ -197,33 +188,6 @@ insert into reviews (indexLectureNumber,reviewStar,sentence) values (3,3,'普通
 insert into reviews (indexLectureNumber,reviewStar,sentence) values (4,2,'難しい');
 insert into reviews (indexLectureNumber,reviewStar,sentence) values (5,5,'インターネットビジネスって感じだった');
 insert into reviews (indexLectureNumber,reviewStar,sentence) values (6,3,'とてもタメになった');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
