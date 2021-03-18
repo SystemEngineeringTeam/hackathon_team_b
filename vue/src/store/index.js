@@ -49,7 +49,7 @@ const getData = {
   state: {
     getLectureList: [
       {
-        Department: "",
+        department: "",
         semester: "",
         dayofweek: "",
         time: "",

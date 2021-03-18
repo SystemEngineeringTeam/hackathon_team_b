@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"with_b/api"
-	"with_b/db"
 )
 
 func main() {
@@ -13,8 +11,7 @@ func main() {
 	// db.CallRectures()
 	// db.CallReview(1)
 	// db.CalculateStarAvarage(1)
-
-	fmt.Println(db.CallRectures("1", "", "", "", "", "", ""))
+	
 	// fmt.Println(db.CallRectures("","kk","","","","",""))
 
 	http.HandleFunc("/lecture", api.Lectures)
