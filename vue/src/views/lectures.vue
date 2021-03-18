@@ -1,15 +1,13 @@
 <template>
   <div>
-    {{ grade }}:{{ Department }}:{{ semester }}
-    <h3>hello</h3>
+    <p v-for="lectureList in this.$store.state.g.getLectureList" v-bind:key="lectureList">
+      {{ lectureList }}
+    </p>
   </div>
 </template>
 
 <script>
-export default {
-  name:"Getlectures",
-  props:['grade','Department','semester','dayofweek','time','teacher','lectureName','reviewStarAverage','indexLectureNumber'],
-};
+export default {};
 </script>
 
 <style>
