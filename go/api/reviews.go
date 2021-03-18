@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"with_b/db"
 )
 
@@ -17,10 +18,30 @@ func Review(w http.ResponseWriter,r *http.Request){
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE") // Allowed methods.
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 
-	if r.Method==http.MethodGet{
+	params := r.URL.Query()
 
-		fmt.Fprintln(w,"hello")
-	}
+    if r.Method == http.MethodGet {
+        var paramsInt int
+        paramsInt,_= strconv.Atoi(params["indexLectureNumber"][0])
+
+        //reviewsは構造体のスライス
+        reviews, err := db.CallReview(paramsInt)
+        //エラー処理
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        //構造体からJSON文字列への変換する
+        reviewsBytes, err := json.Marshal(reviews)
+        //エラー処理
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        //stringに変換
+        reviewsString := string(reviewsBytes)
+        fmt.Fprintln(w, reviewsString)
+    }
 
 	if r.Method==http.MethodPost{
 		//body読み込み
