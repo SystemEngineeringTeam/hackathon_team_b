@@ -5,14 +5,14 @@ create table if not exists lectures
 ,dayofweek varchar(10),timed varchar(10),teacher varchar(20)
 ,lectureName varchar(20),indexLectureNumber INT AUTO_INCREMENT,PRIMARY KEY (indexLectureNumber));
 
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','前期','月曜','3限','高木健太郎','日本国憲法');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','火曜','4限','中村','情報数学');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kx','後期','水曜','3限','秦','ネットワーク');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','木曜','5限','鈴木','データベース');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','金曜','2限','福田','アーキテクチャ');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','月曜','1限','外山','幾何学');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','火曜','2限','山口','オブジェクト志向');
-insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','水曜','3限','松田','モバイル');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','0','月曜日','3限','高木健太郎','日本国憲法');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','1','火曜日','4限','中村','情報数学');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kx','1','水曜日','3限','秦','ネットワーク');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','1','木曜日','5限','鈴木','データベース');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','1','金曜日','2限','福田','アーキテクチャ');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','1','月曜日','1限','外山','幾何学');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','1','火曜日','2限','山口','オブジェクト志向');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','1','水曜日','3限','松田','モバイル');
 
 create table if not exists grade
 (grade varchar(10),indexLectureNumber INT);
