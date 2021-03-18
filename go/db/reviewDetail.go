@@ -2,18 +2,20 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type ReviewDetail struct {
-	IndexLectureNumber int    `json:"indexLectureNumber"`
-	ReviewStar         int    `json:"reviewStar"`
-	Contents           string `json:"sentence"`
+
+type ReviewDetail struct{
+	IndexLectureNumber int `json:"indexLectureNumber"`
+	ReviewStar int `json:"reviewStar"`
+	Contents string `json:"sentence"`
 }
+
+
 
 //CallReview はレビューの構造体のスライスを返す
 func CallReview(indexLectureNumber int) ([]ReviewDetail, error) {
@@ -25,14 +27,17 @@ func CallReview(indexLectureNumber int) ([]ReviewDetail, error) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM reviews WHERE indexLectureNumber=?", indexLectureNumber)
-	defer rows.Close()
-	if err != nil {
-		log.Println(err)
-		return nil, err
-	}
 
-	ReviewDetails := make([]ReviewDetail, 0, 0)
+	rows,err:=db.Query("SELECT * FROM reviews WHERE indexLectureNumber=?",indexLectureNumber)
+	defer rows.Close()
+    if err != nil {
+        log.Println(err)
+		return nil,err
+    }
+
+
+	ReviewDetails:=make([]ReviewDetail,0,0)
+
 
 	for rows.Next() {
 
@@ -41,17 +46,20 @@ func CallReview(indexLectureNumber int) ([]ReviewDetail, error) {
 		var sentence string
 		var id int
 
-		if err := rows.Scan(&indexLectureNumber, &star, &sentence, &id); err != nil {
+
+		if err:=rows.Scan(&indexLectureNumber,&star,&sentence,&id);err!=nil{
+
 			log.Print(err)
 			return nil, err
 		}
 
-		tmpReview := ReviewDetail{indexLectureNumber, star, sentence}
+
+		tmpReview:=ReviewDetail{indexLectureNumber,star,sentence}
+
 
 		ReviewDetails = append(ReviewDetails, tmpReview)
 	}
-
-	fmt.Println(ReviewDetails)
+	// fmt.Println(ReviewDetails)
 
 	return ReviewDetails, nil
 }
@@ -90,18 +98,20 @@ func CalculateStarAvarage(indexLectureNumber int) (string, error) {
 
 	starAvarage := starTotal / float64(rowsCount)
 
-	fmt.Println(starTotal)
-	fmt.Println(starAvarage)
+	// fmt.Println(starTotal)
+	// fmt.Println(starAvarage)
 
 	stringStarAvarage := strconv.FormatFloat(starAvarage, 'f', 2, 64)
 
-	fmt.Println(stringStarAvarage)
+	// fmt.Println(stringStarAvarage)
 
 	return stringStarAvarage, nil
 }
 
 //RegisterReview はレビューを登録する
-func RegisterReview(re ReviewDetail) error {
+
+func RegisterReview(re ReviewDetail)(error){
+
 
 	db, err := sql.Open("mysql", "root@/with_b")
 	if err != nil {
@@ -111,7 +121,10 @@ func RegisterReview(re ReviewDetail) error {
 	defer db.Close()
 	fmt.Println(re.ReviewStar)
 
-	_, err = db.Exec("INSERT INTO reviews (indexLectureNumber,reviewStar,sentence) VALUES (?,?,?)", re.IndexLectureNumber, re.ReviewStar, re.Contents)
+
+	_,err=db.Exec("INSERT INTO reviews (IndexLectureNumber,ReviewStar,sentence) VALUES (?,?,?)",re.IndexLectureNumber,re.ReviewStar,re.Contents)
+
+
 
 	if err != nil {
 		log.Println(err)

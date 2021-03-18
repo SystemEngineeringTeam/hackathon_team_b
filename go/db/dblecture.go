@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -14,12 +13,13 @@ type Recture struct {
 	Department         string `json:"department"`
 	Semester           string `json:"semester"`
 	DayofWeek          string `json:"dayofweek"`
-	Timed              string `json:"timed"`
+	Timed              string `json:"time"`
 	Teacher            string `json:"teacher"`
 	LectureName        string `json:"lectureName"`
 	ReviewStarAverage  string `json:"reviewStarAverage"`
 	IndexLectureNumber int    `json:"indexLectureNumber"`
 }
+
 
 //gr string, de string, sem string, day string, ti string, te string, le string
 //CallRectures は講義の内容を呼び出す
@@ -48,24 +48,24 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 	//indexLectureNumberは取ってこれる
 	//Queryを使えば複数のレコードを取得できる
 
-	sql := "SELECT * FROM lectures WHERE "
-	if len(de) != 0 {
-		sql = sql + "department=" + "'" + de + "'" + " AND "
+	sql:="SELECT * FROM lectures WHERE "
+	if len(de)!=0{
+		sql=sql+"department="+"'"+de+"'"+" AND "
 	}
-	if len(sem) != 0 {
-		sql = sql + "semester=" + "'" + sem + "'" + " AND "
+	if len(sem)!=0{
+		sql=sql+"semester="+"'"+sem+"'"+" AND "
 	}
-	if len(day) != 0 {
-		sql = sql + "dayofweek=" + "'" + day + "'" + " AND "
+	if len(day)!=0{
+		sql=sql+"dayofweek="+"'"+day+"'"+" AND "
 	}
-	if len(ti) != 0 {
-		sql = sql + "timed=" + "'" + ti + "'" + " AND "
+	if len(ti)!=0{
+		sql=sql+"timed="+"'"+ti+"'"+" AND "
 	}
-	if len(te) != 0 {
-		sql = sql + "teacher like " + "'%" + te + "%'" + " AND "
+	if len(te)!=0{
+		sql=sql+"teacher like "+"'%"+te+"%'"+" AND "
 	}
-	if len(le) != 0 {
-		sql = sql + "lectureName like " + "'%" + le + "%'"
+	if len(le)!=0{
+		sql=sql+"lectureName "+"'%"+le+"%'"
 	}
 
 	rows, err := db.Query(sql)
@@ -87,45 +87,52 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 		var lectureName string
 		var indexLectureNumber int
 
-		rows.Scan(&department, &semester, &dayofweek, &timed, &teacher, &lectureName, &indexLectureNumber)
+
+
+
+		rows.Scan(&department,&semester,&dayofweek,&timed,&teacher,&lectureName,&indexLectureNumber);
 
 		reviewStarAverage, err := CalculateStarAvarage(indexLectureNumber)
 		if err != nil {
 			log.Println(err)
 		}
 
-		fmt.Println("indexLecturenumber", indexLectureNumber)
 
-		gradeFlag := false
-		row, err := db.Query("SELECT grade FROM grade WHERE indexLectureNumber=?", indexLectureNumber)
+
+		gradeFlag:=false
+		row,err:=db.Query("SELECT grade FROM grade WHERE indexLectureNumber=?",indexLectureNumber)
+
 		defer row.Close()
 
 		var gradeSlice string
 
-		for row.Next() {
+
+
+		for row.Next(){
 			var tmpGrade string
 			row.Scan(&tmpGrade)
-			if tmpGrade == gr {
-				gradeFlag = true
+			if tmpGrade==gr{
+				gradeFlag=true
 			}
-			gradeSlice = gradeSlice + tmpGrade + " "
+
+			gradeSlice=gradeSlice+tmpGrade+" "
 		}
 
 		//一致した学年が一つでもあればindexLectureNumberに対応する学年全て返す
-		fmt.Println(gradeSlice)
+		// fmt.Println(gradeSlice)
 
-		if gradeFlag {
+		if gradeFlag{
 			//構造体に格納
-			tmpRecture := Recture{gradeSlice, department, semester, dayofweek, timed, teacher, lectureName, reviewStarAverage, indexLectureNumber}
+			tmpRecture := Recture{gradeSlice,department, semester, dayofweek, timed, teacher, lectureName, reviewStarAverage, indexLectureNumber}
 			//スライスに追加
 			Rectures = append(Rectures, tmpRecture)
-		} else {
-			return nil, err
+		}else{
+			return nil,err
+
 		}
 
 	}
 
-	fmt.Println(Rectures)
 
 	return Rectures, nil
 }
