@@ -160,23 +160,18 @@
         class="ma-2"
         :loading="loading"
         :disabled="loading"
-        @click="loader = 'loading'"
-      >
-        Accept Terms
-      </v-btn>
-      <v-btn
-        class="ma-2"
-        :loading="loading"
-        :disabled="loading"
         @click="Clicksubmit()"
       >
         Accept Terms
       </v-btn>
+      <button @click="reviewGet()">押してね</button>
+      <button @click="registerReview()">post処理</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -184,10 +179,10 @@ export default {
       gradeSelected: null,
       gradeOptions: [
         { value: null, text: "Please select an option" },
-        { value: "1年", text: "1年" },
-        { value: "2年", text: "2年" },
-        { value: "3年", text: "3年" },
-        { value: "4年", text: "4年" },
+        { value: "1", text: "1年" },
+        { value: "2", text: "2年" },
+        { value: "3", text: "3年" },
+        { value: "4", text: "4年" },
       ],
       timeSelected: null,
       timeOptions: [
@@ -212,20 +207,20 @@ export default {
       DepartmentSelected: null,
       DepartmentOptions: [
         { value: null, text: "Please select an option" },
-        { value: "電気工学専攻", text: "電気工学専攻" },
-        { value: "電子情報工学専攻", text: "電子情報工学専攻" },
-        { value: "応用化学専攻", text: "応用化学専攻" },
-        { value: "バイオ環境化学専攻", text: "バイオ環境化学専攻" },
-        { value: "機械工学専攻", text: "機械工学専攻" },
-        { value: "機械創造工学専攻", text: "機械創造工学専攻" },
-        { value: "土木工学専攻", text: "土木工学専攻" },
-        { value: "防災土木工学専攻", text: "防災土木工学専攻" },
-        { value: "建築学専攻", text: "建築学専攻" },
-        { value: "住居デザイン専攻", text: "住居デザイン専攻" },
-        { value: "経営情報システム専攻", text: "経営情報システム専攻" },
-        { value: "スポーツマネジメント専攻", text: "スポーツマネジメント専攻" },
-        { value: "コンピュータシステム専攻", text: "コンピュータシステム専攻" },
-        { value: "メディア情報専攻", text: "メディア情報専攻" },
+        { value: "ee", text: "電気工学専攻" },
+        { value: "ev", text: "電子情報工学専攻" },
+        { value: "cc", text: "応用化学専攻" },
+        { value: "cb", text: "バイオ環境化学専攻" },
+        { value: "mm", text: "機械工学専攻" },
+        { value: "mp", text: "機械創造工学専攻" },
+        { value: "dd", text: "土木工学専攻" },
+        { value: "ds", text: "防災土木工学専攻" },
+        { value: "fa", text: "建築学専攻" },
+        { value: "fl", text: "住居デザイン専攻" },
+        { value: "ht", text: "経営情報システム専攻" },
+        { value: "hh", text: "スポーツマネジメント専攻" },
+        { value: "kk", text: "コンピュータシステム専攻" },
+        { value: "kx", text: "メディア情報専攻" },
       ],
       teacherText: null,
       lectureName: null,
@@ -253,6 +248,28 @@ export default {
         lectureName: this.lectureName,
       });
     },
+    reviewGet:function(){
+      //ヒント
+      //this.$store.state.p.lectures.foreach(lecture => {})
+      //console.log(this.$store.state.p.lectures[0].grade)
+
+      // console.log(this.$store.state.lectures[0].grade)
+      axios.get("http://localhost:3030/lecture"+"?grade="+this.$store.state.p.lectures[0].grade+"&semester="+this.$store.state.p.lectures[0].semester
+      +"Department="+this.$store.state.p.lectures[0].Department+"&dayofweek="+this.$store.state.p.lectures[0].dayofweek+"&time="+this.$store.state.p.lectures[0].time
+      +"&teacher="+this.$store.state.p.lectures[0].teacher+"&lectureName="+this.$store.state.p.lectures[0].lectureName)
+      .then(res=>{
+        console.log(res)
+      })
+    },
+    registerReview(){
+      axios.post("http://localhost:3030/review",{
+        IndexLectureNumber:4,
+        ReviewStar:5,
+        sentence:"登録完了",
+      }).then(res=>{
+        console.log(res)
+      })
+    }
   },
 };
 </script>

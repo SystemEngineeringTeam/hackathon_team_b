@@ -4,7 +4,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const postData = {
   state: {
     lectures: [
       {
@@ -17,6 +17,34 @@ export default new Vuex.Store({
         lectureName: "",
       },
     ],
+  },
+  mutations: {
+    setALecture(state, lecture) {
+      state.lectures[0] = lecture;
+    },
+  },
+  actions: {
+    setLecture(context, lecture) {
+      context.commit("setALecture", lecture);
+    },
+    async postLecture(context) {
+      await axios
+        .post(
+          process.env.VUE_APP_API_LECTURE,
+          JSON.stringify(context.state.lectures)
+        )
+        .then((res) => {
+          context.commit("addGetLectureList", res.data);
+        })
+        .catch(() => {
+          console.log("lectureのpostに失敗しました");
+        });
+    },
+  },
+};
+
+const getData = {
+  state: {
     getLectureList: [
       {
         Department: "",
@@ -31,42 +59,19 @@ export default new Vuex.Store({
       },
     ],
   },
-
   mutations: {
-    setALecture(state, lecture) {
-      state.lectures[0] = lecture;
+    addGetLectureList(state, lectureList) {
+      state.getLectureList.push(lectureList);
     },
-    setGetterLectureList(state, lectureList) {
-      state.getLectureList[0] = lectureList;
+    removeLectureList(state) {
+      state.getLectureList.splice(0);
     },
   },
+};
 
-  actions: {
-    setLecture(context, lecture) {
-      context.commit("setALecture", lecture);
-    },
-    async postLecture(context) {
-      await axios
-        .post(
-          process.env.VUE_APP_API_LECTURE,
-          JSON.stringify(context.state.lectures)
-        )
-        .then(() => {})
-        .catch(() => {
-          console.log("lectureのpostに失敗しました");
-        });
-    },
-    async getLecture(context) {
-      await axios
-        .get(process.env.VUE_APP_API_LECTURE)
-        .then((res) => {
-          context.commit("setGetterLectureList", res.data);
-          console.log(res.data);
-        })
-        .catch(() => {
-          console.log("lectureのgetに失敗しました");
-        });
-    },
+export default new Vuex.Store({
+  modules: {
+    p: postData,
+    g: getData,
   },
-  modules: {},
 });
