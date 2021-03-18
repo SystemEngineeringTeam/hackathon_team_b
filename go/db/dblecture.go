@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -14,7 +13,7 @@ type Recture struct {
 	Department         string `json:"department"`
 	Semester           string `json:"semester"`
 	DayofWeek          string `json:"dayofweek"`
-	Timed              string `json:"timed"`
+	Timed              string `json:"time"`
 	Teacher            string `json:"teacher"`
 	LectureName        string `json:"lectureName"`
 	ReviewStarAverage  string `json:"reviewStarAverage"`
@@ -40,7 +39,6 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 	// ti:="3限"
 	// te:="高木"
 	// le:="日本"
-
 	// if gradeFlag{
 
 	// }
@@ -49,7 +47,6 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 
 	//indexLectureNumberは取ってこれる
 	//Queryを使えば複数のレコードを取得できる
-
 	sql:="SELECT * FROM lectures WHERE "
 	if len(de)!=0{
 		sql=sql+"department="+"'"+de+"'"+" AND "
@@ -69,7 +66,6 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 	if len(le)!=0{
 		sql=sql+"lectureName like "+"'%"+le+"%'"
 	}
-	fmt.Println(sql)
 
 	rows, err := db.Query(sql)
 	defer rows.Close()
@@ -97,31 +93,36 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 			log.Println(err)
 		}
 
-		// gradeFlag:=false
-		// row,err:=db.Query("SELECT grade FROM grade WHERE indexLectureNumber=?",indexLectureNumber)
-		// row.Close()
 
-		// for row.Next(){
-		// 	var tmpGrade string
-		// 	row.Scan(&tmpGrade)
-		// 	if tmpGrade==gr{
-		// 		gradeFlag=true
-		// 	}
-		// }
-		// //一致した学年が一つでもあればindexLectureNumberに対応する学年全て返す
-		// if gradeFlag{
-		// 	rowgrade,err:=db.Query("SE")
+		gradeFlag:=false
+		row,err:=db.Query("SELECT grade FROM grade WHERE indexLectureNumber=?",indexLectureNumber)
+		defer row.Close()
 
-		// }
+		var gradeSlice string
 
-		//構造体に格納
-		tmpRecture := Recture{"1",department, semester, dayofweek, timed, teacher, lectureName, reviewStarAverage, indexLectureNumber}
+		for row.Next(){
+			var tmpGrade string
+			row.Scan(&tmpGrade)
+			if tmpGrade==gr{
+				gradeFlag=true
+			}
+			gradeSlice=gradeSlice+tmpGrade+" "
+		}
 
-		//スライスに追加
-		Rectures = append(Rectures, tmpRecture)
+		//一致した学年が一つでもあればindexLectureNumberに対応する学年全て返す
+		// fmt.Println(gradeSlice)
+
+		if gradeFlag{
+			//構造体に格納
+			tmpRecture := Recture{gradeSlice,department, semester, dayofweek, timed, teacher, lectureName, reviewStarAverage, indexLectureNumber}
+			//スライスに追加
+			Rectures = append(Rectures, tmpRecture)
+		}else{
+			return nil,err
+		}
+
 	}
 
-	fmt.Println(Rectures)
 
 	return Rectures, nil
 }

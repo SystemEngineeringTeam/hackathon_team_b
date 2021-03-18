@@ -6,6 +6,7 @@ create table if not exists lectures
 ,lectureName varchar(20),indexLectureNumber INT AUTO_INCREMENT,PRIMARY KEY (indexLectureNumber));
 
 insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','前期','月曜','3限','高木健太郎','日本国憲法');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','前期','月曜','3限','高木健太郎','日本会話');
 
 
 create table if not exists grade
@@ -17,6 +18,7 @@ insert into grade values (3,1);
 insert into grade values (4,1);
 insert into grade values (3,2);
 insert into grade values (4,2);
+
 
 
 
