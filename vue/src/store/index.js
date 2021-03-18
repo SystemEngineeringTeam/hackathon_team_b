@@ -65,7 +65,6 @@ const getData = {
     addGetLectureList(state, lectureList) {
       state.getLectureList.push(lectureList);
     },
-    //まだ
     removeLectureList(state) {
       state.getLectureList.splice(0);
     },

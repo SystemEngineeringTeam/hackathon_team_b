@@ -268,13 +268,18 @@ export default {
             this.$store.state.p.lectures[0].lectureName
         )
         .then((res) => {
+          console.log(res);
+          console.log(res.data.length);
+          this.$store.commit("removeLectureList");
 
-          console.log(res)
-          this.$router.push('/lectures')
+          for (var i = 0; i < res.data.length; i++) {
+            this.$store.commit("addGetLectureList", res.data[i]);
+          }
+          this.$router.push("/lectures");
         })
         .catch(function (error) {
           console.log(error);
-          this.$router.push('/lectures')
+          this.$router.push("/lectures");
         });
     },
   },
