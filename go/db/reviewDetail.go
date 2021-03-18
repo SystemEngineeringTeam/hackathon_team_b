@@ -33,7 +33,6 @@ func CallReview(indexLectureNumber int)([]ReviewDetail,error)  {
 		return nil,err
     }
 
-
 	ReviewDetails:=make([]ReviewDetail,0,0)
 
 	for rows.Next(){
