@@ -1,9 +1,9 @@
 <template>
   <div>
-    <ul>
-      <li v-for="Lists in $store.state.g.getLectureList" :key="Lists">
-        <template>
-          <v-app>
+    <v-app>
+      <ul>
+        <li v-for="Lists in $store.state.g.getLectureList" :key="Lists">
+          <template>
             <v-card
               :loading="loading"
               class="mx-auto my-12"
@@ -11,7 +11,7 @@
               max-width="700"
             >
               <v-card-title
-                >{{ Lists.teacher }}  {{ Lists.lectureName }}</v-card-title
+                >{{ Lists.teacher }} {{ Lists.lectureName }}</v-card-title
               >
               <v-card-text>
                 <v-row align="center" class="mx-0">
@@ -33,21 +33,18 @@
 
                 <div>ああああ</div>
               </v-card-text>
-
               <v-divider class="mx-4"></v-divider>
-
               <v-card-title>ああああ</v-card-title>
-
               <v-card-actions>
                 <v-btn color="deep-purple lighten-2" text @click="reserve">
                   レビューを見る
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-app>
-        </template>
-      </li>
-    </ul>
+          </template>
+        </li>
+      </ul>
+    </v-app>
   </div>
 </template>
 
