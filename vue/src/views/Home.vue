@@ -164,6 +164,7 @@
       >
         検索
       </v-btn>
+      <!-- <button @click="urlpush()">push</button> -->
     </div>
   </div>
 </template>
@@ -267,11 +268,32 @@ export default {
             this.$store.state.p.lectures[0].lectureName
         )
         .then((res) => {
-          console.log(res.data);
-          
+          //console.log(res.data);
+          //console.log(res.data[0].grade)
+          console.log(this.$store.state.g.getLectureList.length);
+          for(var i=0 ;i<this.$store.state.g.getLectureList.length;i++){
+            this.$store.state.g.getLectureList[i].grade=res.data[i].grade
+            this.$store.state.g.getLectureList[i].Department=res.data[i].Department
+            this.$store.state.g.getLectureList[i].semester=res.data[i].semester
+            this.$store.state.g.getLectureList[i].dayofweek=res.data[i].dayofweek
+            this.$store.state.g.getLectureList[i].time=res.data[i].time
+            this.$store.state.g.getLectureList[i].teacher=res.data[i].teacher
+            this.$store.state.g.getLectureList[i].lectureName=res.data[i].lectureName
+            this.$store.state.g.getLectureList[i].reviewStarAverage=res.data[i].reviewStarAverage
+            this.$store.state.g.getLectureList[i].indexLectureNumber=res.data[i].indexLectureNumber
+            /*
+            console.log(this.$store.state.g.getLectureList[i].indexLectureNumber)
+            console.log(this.$store.state.g.getLectureList[i].reviewStarAverage)
+            console.log(this.$store.state.g.getLectureList[i].semester)
+            console.log(this.$store.state.g.getLectureList[i].teacher)
+            */
+          }
+          //this.$store.state.g.getLectureList[0].grade=res.data[0].grade
+          this.$router.push('/lectures')
         })
         .catch(function (error) {
           console.log(error);
+          this.$router.push('/lectures')
         });
     },
   },

@@ -57,7 +57,7 @@ const getData = {
         lectureName: "",
         grade: "",
         reviewStarAverage: "",
-        index: "",
+        indexLectureNumber: "",
       },
     ],
   },
