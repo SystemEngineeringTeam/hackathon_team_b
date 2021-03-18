@@ -1,4 +1,8 @@
-<template></template>
+<template>
+<h1>
+  セックスシコシコ
+</h1>
+</template>
 
 <script>
 export default {

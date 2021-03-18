@@ -36,7 +36,11 @@
               <v-divider class="mx-4"></v-divider>
               <v-card-title>ああああ</v-card-title>
               <v-card-actions>
-                <v-btn color="deep-purple lighten-2" text @click="reserve">
+                <v-btn
+                  color="deep-purple lighten-2"
+                  text
+                  @click="reviewDetail(Lists.indexLectureNumber)"
+                >
                   レビューを見る
                 </v-btn>
               </v-card-actions>
@@ -49,7 +53,29 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  methods: {
+    reviewDetail(index) {
+      axios
+        .get(
+          "http://localhost:3030/review?=" +
+            this.$store.state.g.getLectureList[index].indexLectureNumber
+        )
+        .then((res) => {
+          console.log(res.data);
+          console.log(res.data.length);
+          this.$store.commit("removeReviewList");
+          this.$store.commit("addReviewList", res.data);
+          this.$router.push("/review");
+        })
+        .catch(function (error) {
+          console.log(error);
+          this.$router.push("/review");
+        });
+    },
+  },
+};
 </script>
 
 <style>

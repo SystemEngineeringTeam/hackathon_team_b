@@ -71,9 +71,27 @@ const getData = {
   },
 };
 
+const reviewData = {
+  state: {
+    reviewList: {
+      reviewStar: "",
+      review: "",
+    },
+  },
+  mutations: {
+    addReviewList(state, review) {
+      state.reviewList.push(review);
+    },
+    removeReviewList(state) {
+      state.reviewList.splice(0);
+    },
+  },
+};
+
 export default new Vuex.Store({
   modules: {
     p: postData,
     g: getData,
+    r: reviewData,
   },
 });
