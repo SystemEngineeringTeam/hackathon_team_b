@@ -1,19 +1,13 @@
 <template>
   <div id="app">
+    <v-app>
     <v-container class="mt-6">
       <!-- 最大画面の表示は正常だが、中画面〜スマホサイズのレスポンシブは最悪
       最大画面の表示で正常な処理ができれば、後からでも中画面のレスポンシブは変えれるので
       今は処理が出来ることを目指す。
       -->
-      <v-row class="grey lighten-3" styl  e="height: 200px">
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #ffcdd2"
-        >
+      <v-row class="lighten-3" style="height: 200px">
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">学期</p>
             <v-chip-group v-model="semester" column>
@@ -25,14 +19,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #f8bbd0"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">学年</p>
             <b-form-select
@@ -44,14 +31,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #e1bee7"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">時限</p>
             <b-form-select
@@ -64,15 +44,8 @@
           </b-card>
         </v-col>
       </v-row>
-      <v-row class="grey lighten-3" style="height: 200px">
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #ffcdd2"
-        >
+      <v-row class="lighten-3" style="height: 200px">
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">曜日</p>
             <b-form-select
@@ -84,14 +57,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #f8bbd0"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">専攻</p>
             <b-form-select
@@ -103,14 +69,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #e1bee7"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">講師</p>
             <div>
@@ -128,15 +87,8 @@
           </b-card>
         </v-col>
       </v-row>
-      <v-row class="grey lighten-3" style="height: 200px">
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #e1bee7"
-        >
+      <v-row class="lighten-3" style="height: 200px">
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">科目名</p>
             <div>
@@ -166,6 +118,7 @@
       </v-btn>
       <!-- <button @click="urlpush()">push</button> -->
     </div>
+    </v-app>
   </div>
 </template>
 
@@ -248,7 +201,6 @@ export default {
       });
     },
     lectureGetParams: function () {
-
       axios
         .get(
           "http://localhost:3030/lecture" +
