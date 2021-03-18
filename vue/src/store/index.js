@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
+//import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -27,6 +27,7 @@ const postData = {
     setLecture(context, lecture) {
       context.commit("setALecture", lecture);
     },
+    /*
     async postLecture(context) {
       await axios
         .post(
@@ -40,6 +41,7 @@ const postData = {
           console.log("lectureのpostに失敗しました");
         });
     },
+    */
   },
 };
 
@@ -63,6 +65,7 @@ const getData = {
     addGetLectureList(state, lectureList) {
       state.getLectureList.push(lectureList);
     },
+    //まだ
     removeLectureList(state) {
       state.getLectureList.splice(0);
     },

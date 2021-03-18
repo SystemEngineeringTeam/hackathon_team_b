@@ -160,12 +160,10 @@
         class="ma-2"
         :loading="loading"
         :disabled="loading"
-        @click="Clicksubmit()"
+        @click="Clicksubmit(), lectureGetParams()"
       >
-        Accept Terms
+        検索
       </v-btn>
-      <button @click="reviewGet()">押してね</button>
-      <button @click="registerReview()">post処理</button>
     </div>
   </div>
 </template>
@@ -248,28 +246,34 @@ export default {
         lectureName: this.lectureName,
       });
     },
-    reviewGet:function(){
-      //ヒント
-      //this.$store.state.p.lectures.foreach(lecture => {})
-      //console.log(this.$store.state.p.lectures[0].grade)
 
-      // console.log(this.$store.state.lectures[0].grade)
-      axios.get("http://localhost:3030/lecture"+"?grade="+this.$store.state.p.lectures[0].grade+"&semester="+this.$store.state.p.lectures[0].semester
-      +"Department="+this.$store.state.p.lectures[0].Department+"&dayofweek="+this.$store.state.p.lectures[0].dayofweek+"&time="+this.$store.state.p.lectures[0].time
-      +"&teacher="+this.$store.state.p.lectures[0].teacher+"&lectureName="+this.$store.state.p.lectures[0].lectureName)
-      .then(res=>{
-        console.log(res)
-      })
+    lectureGetParams: function () {
+      axios
+        .get(
+          "http://localhost:3030/lecture" +
+            "?grade=" +
+            this.$store.state.p.lectures[0].grade +
+            "&semester=" +
+            this.$store.state.p.lectures[0].semester +
+            "Department=" +
+            this.$store.state.p.lectures[0].Department +
+            "&dayofweek=" +
+            this.$store.state.p.lectures[0].dayofweek +
+            "&time=" +
+            this.$store.state.p.lectures[0].time +
+            "&teacher=" +
+            this.$store.state.p.lectures[0].teacher +
+            "&lectureName=" +
+            this.$store.state.p.lectures[0].lectureName
+        )
+        .then((res) => {
+          console.log(res.data);
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-    registerReview(){
-      axios.post("http://localhost:3030/review",{
-        IndexLectureNumber:4,
-        ReviewStar:5,
-        sentence:"登録完了",
-      }).then(res=>{
-        console.log(res)
-      })
-    }
   },
 };
 </script>
