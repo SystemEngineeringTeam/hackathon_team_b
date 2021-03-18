@@ -18,7 +18,7 @@ type ReviewDetail struct {
 //CallReview はレビューの構造体のスライスを返す
 func CallReview(indexLectureNumber int) ([]ReviewDetail, error) {
 
-	db, err := sql.Open("mysql", "root@/with_b")
+	db, err := sql.Open("mysql", "root:tako64tako@tcp(127.0.0.1:3306)/with_b")
 	if err != nil {
 		log.Println(err)
 		return nil, err

@@ -25,7 +25,7 @@ type Recture struct {
 //CallRectures は講義の内容を呼び出す
 func CallRectures(gr string, de string, sem string, day string, ti string, te string, le string) ([]Recture, error) {
 
-	db, err := sql.Open("mysql", "root@/with_b")
+	db, err := sql.Open("mysql", "root:tako64tako@tcp(127.0.0.1:3306)/with_b")
 	if err != nil {
 		log.Println(err)
 	}

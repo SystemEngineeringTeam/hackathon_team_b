@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"with_b/db"
@@ -17,12 +16,6 @@ func Review(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")                       // Allow any access.
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE") // Allowed methods.
 	w.Header().Set("Access-Control-Allow-Headers", "*")
-
-	url := ""
-	r, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	params := r.URL.Query()
 
@@ -38,6 +31,7 @@ func Review(w http.ResponseWriter, r *http.Request) {
 		}
 		//構造体からJSON文字列への変換する
 		reviewsBytes, err := json.Marshal(reviews)
+		fmt.Println("reviewsByte", reviewsBytes)
 		//エラー処理
 		if err != nil {
 			fmt.Println(err)
