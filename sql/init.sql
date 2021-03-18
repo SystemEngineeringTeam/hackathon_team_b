@@ -81,6 +81,8 @@ insert into grade values (3,10);
 insert into grade values (4,10);
 insert into grade values (3,11);
 insert into grade values (4,11);
+
+
 insert into grade values (3,12);
 insert into grade values (3,12);
 insert into grade values (2,13);

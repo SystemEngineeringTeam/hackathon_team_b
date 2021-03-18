@@ -106,7 +106,14 @@ export default {
           sentence: this.text,
         })
         .then((res) => {
-          console.log(res);
+          console.log(res.config.data);
+          var test = {
+            IndexLectureNumber: this.$store.state.r.reviewList[0].indexLectureNumber,
+            reviewStar: this.reviewStar,
+            sentence: this.text
+          };
+          this.$store.state.r.reviewList.push(test)
+          console.log(this.$store.state.r.reviewList)
           //console.log("unko");
         })
         .catch(function (error) {

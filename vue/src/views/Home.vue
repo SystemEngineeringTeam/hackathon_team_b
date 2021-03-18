@@ -109,7 +109,7 @@
       検索
     </v-btn>
       </v-row>
-        
+
     </v-container>
     <div class="float-right m-10">
       <!-- <button @click="urlpush()">push</button> -->
@@ -217,7 +217,7 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          console.log(res.data.length);
+          // console.log(res.data.length);
           this.$store.commit("removeLectureList");
 
           for (var i = 0; i < res.data.length; i++) {

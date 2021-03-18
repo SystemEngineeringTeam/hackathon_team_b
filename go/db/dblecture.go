@@ -138,7 +138,8 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 		}
 
 		//一致した学年が一つでもあればindexLectureNumberに対応する学年全て返す
-		// fmt.Println(gradeSlice)
+
+		//grが指定されなかった時フラグをtrueにする
 		if len(gr) == 0 {
 			gradeFlag = true
 		}
@@ -148,11 +149,10 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 			tmpRecture := Recture{gradeSlice, department, semester, dayofweek, timed, teacher, lectureName, reviewStarAverage, indexLectureNumber}
 			//スライスに追加
 			Rectures = append(Rectures, tmpRecture)
-		} else {
-			return nil, err
 		}
 
 	}
+	fmt.Println("Rectures", Rectures)
 
 	return Rectures, nil
 }

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-btn @click="sorted()">test</v-btn>
     <v-app>
       <ul>
         <li v-for="Lists,i in $store.state.g.getLectureList" :key="i">
@@ -22,14 +23,11 @@
                     readonly
                     size="14"
                   ></v-rating>
-
                   <div class="grey--text ml-4">
                     {{ Lists.reviewStarAverage }}
                   </div>
                 </v-row>
-
                 <div class="my-4 subtitle-1">ああああ</div>
-
                 <div>ああああ</div>
               </v-card-text>
               <v-divider class="mx-4"></v-divider>
@@ -73,7 +71,23 @@ export default {
           this.$router.push("/review");
         });
     },
+    sortChange(){
+      this.$store.state.g.getLectureList=sortedScore
+    },
+    sorted(){
+      this.$store.state.g.getLectureList.sort((a,b)=>{
+        (a.reviewStarAverage>b.reviewStarAverage) ? -1 : (a.reviewStarAverage > b.reviewStarAverage) ? 1:0;
+      })
+    }
   },
+  computed:{
+    sortedScore(){
+      return this.$store.state.g.getLectureList.sort((a,b)=>{
+        return (a.reviewStarAverage>b.reviewStarAverage) ? -1 : (a.reviewStarAverage > b.reviewStarAverage) ? 1:0;
+      })
+    }
+  },
+
 };
 </script>
 
