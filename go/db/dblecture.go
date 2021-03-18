@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -47,25 +48,54 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 
 	//indexLectureNumberは取ってこれる
 	//Queryを使えば複数のレコードを取得できる
-	sql:="SELECT * FROM lectures WHERE "
+
+	sqlCount:=0
+	sql:="SELECT * FROM lectures "
 	if len(de)!=0{
-		sql=sql+"department="+"'"+de+"'"+" AND "
+		sql=sql+" WHERE department="+"'"+de+"'"
+		sqlCount++
 	}
 	if len(sem)!=0{
-		sql=sql+"semester="+"'"+sem+"'"+" AND "
+		if sqlCount==0{
+			sql=sql+"WHERE semester="+"'"+sem+"'"
+		}else{
+			sql=sql+"AND semester="+"'"+sem+"'"
+		}
+		sqlCount++
 	}
 	if len(day)!=0{
-		sql=sql+"dayofweek="+"'"+day+"'"+" AND "
+		if sqlCount==0{
+			sql=sql+"WHERE dayofweek="+"'"+day+"'"
+		}else{
+			sql=sql+"AND dayofweek="+"'"+day+"'"
+		}
+		sqlCount++
 	}
 	if len(ti)!=0{
-		sql=sql+"timed="+"'"+ti+"'"+" AND "
+		if sqlCount==0{
+			sql=sql+" WHERE timed="+"'"+ti+"'"
+		}else{
+			sql=sql+" AND timed="+"'"+ti+"'"
+		}
+		sqlCount++
 	}
 	if len(te)!=0{
-		sql=sql+"teacher like "+"'%"+te+"%'"+" AND "
+		if sqlCount==0{
+			sql=sql+" WHERE teacher like"+"'%"+te+"%'"
+		}else{
+			sql=sql+"AND teacher like"+"'%"+te+"%'"
+		}
+		sqlCount++
 	}
 	if len(le)!=0{
-		sql=sql+"lectureName "+"'%"+le+"%'"
+		if sqlCount==0{
+			sql=sql+"WHERE lectureName like "+"'%"+le+"%'"
+		}else{
+			sql=sql+"AND lectureName like "+"'%"+le+"%'"
+		}
+		sqlCount++
 	}
+	fmt.Println("sql=",sql)
 
 	rows, err := db.Query(sql)
 	defer rows.Close()
@@ -75,6 +105,7 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 
 	//空の構造体のスライスを作成
 	Rectures := make([]Recture, 0, 0)
+
 
 	for rows.Next() {
 		// var grade string
@@ -112,6 +143,9 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 
 		//一致した学年が一つでもあればindexLectureNumberに対応する学年全て返す
 		// fmt.Println(gradeSlice)
+		if len(gr)==0{
+			gradeFlag=true
+		}
 
 		if gradeFlag{
 			//構造体に格納

@@ -18,6 +18,7 @@ func Review(w http.ResponseWriter,r *http.Request){
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 
 	if r.Method==http.MethodGet{
+
 		fmt.Fprintln(w,"hello")
 	}
 
