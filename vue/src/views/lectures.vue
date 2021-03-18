@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="sorted()">test</v-btn>
+    <v-btn @click="sorted()">評価が高い順にソート</v-btn>
     <v-app>
       <ul>
         <li v-for="Lists,i in $store.state.g.getLectureList" :key="i">
@@ -71,23 +71,14 @@ export default {
           this.$router.push("/review");
         });
     },
-    sortChange(){
-      this.$store.state.g.getLectureList=sortedScore
-    },
     sorted(){
-      this.$store.state.g.getLectureList.sort((a,b)=>{
-        (a.reviewStarAverage>b.reviewStarAverage) ? -1 : (a.reviewStarAverage > b.reviewStarAverage) ? 1:0;
-      })
+      this.$store.state.g.getLectureList.sort(function(a,b){
+        if(a.reviewStarAverage < b.reviewStarAverage) return -1;
+        if(a.reviewStarAverage > b.reviewStarAverage) return 1;
+        return 0;
+      });
     }
   },
-  computed:{
-    sortedScore(){
-      return this.$store.state.g.getLectureList.sort((a,b)=>{
-        return (a.reviewStarAverage>b.reviewStarAverage) ? -1 : (a.reviewStarAverage > b.reviewStarAverage) ? 1:0;
-      })
-    }
-  },
-
 };
 </script>
 
