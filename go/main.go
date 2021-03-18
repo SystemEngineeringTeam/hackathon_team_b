@@ -11,8 +11,7 @@ func main() {
 	// db.CallRectures()
 	// db.CallReview(1)
 	// db.CalculateStarAvarage(1)
-
-	//fmt.Println(db.CallRectures("2","kk", "", "", "", "", ""))
+	
 	// fmt.Println(db.CallRectures("","kk","","","","",""))
 
 	http.HandleFunc("/lecture", api.Lectures)

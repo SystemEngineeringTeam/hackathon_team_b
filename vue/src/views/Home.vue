@@ -5,7 +5,7 @@
       最大画面の表示で正常な処理ができれば、後からでも中画面のレスポンシブは変えれるので
       今は処理が出来ることを目指す。
       -->
-      <v-row class="grey lighten-3" style="height: 200px">
+      <v-row class="grey lighten-3" styl  e="height: 200px">
         <v-col
           cols="12"
           sm="8"
@@ -164,6 +164,7 @@
       >
         検索
       </v-btn>
+      <!-- <button @click="urlpush()">push</button> -->
     </div>
   </div>
 </template>
@@ -246,8 +247,8 @@ export default {
         lectureName: this.lectureName,
       });
     },
-
     lectureGetParams: function () {
+
       axios
         .get(
           "http://localhost:3030/lecture" +
@@ -255,7 +256,7 @@ export default {
             this.$store.state.p.lectures[0].grade +
             "&semester=" +
             this.$store.state.p.lectures[0].semester +
-            "Department=" +
+            "&Department=" +
             this.$store.state.p.lectures[0].Department +
             "&dayofweek=" +
             this.$store.state.p.lectures[0].dayofweek +
@@ -267,11 +268,18 @@ export default {
             this.$store.state.p.lectures[0].lectureName
         )
         .then((res) => {
-          console.log(res.data);
-          
+          console.log(res);
+          console.log(res.data.length);
+          this.$store.commit("removeLectureList");
+
+          for (var i = 0; i < res.data.length; i++) {
+            this.$store.commit("addGetLectureList", res.data[i]);
+          }
+          this.$router.push("/lectures");
         })
         .catch(function (error) {
           console.log(error);
+          this.$router.push("/lectures");
         });
     },
   },
