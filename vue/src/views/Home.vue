@@ -1,19 +1,13 @@
 <template>
   <div id="app">
+    <v-app>
     <v-container class="mt-6">
       <!-- 最大画面の表示は正常だが、中画面〜スマホサイズのレスポンシブは最悪
       最大画面の表示で正常な処理ができれば、後からでも中画面のレスポンシブは変えれるので
       今は処理が出来ることを目指す。
       -->
-      <v-row class="grey lighten-3" style="height: 200px">
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #ffcdd2"
-        >
+      <v-row class="lighten-3" style="height: 200px">
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">学期</p>
             <v-chip-group v-model="semester" column>
@@ -25,14 +19,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #f8bbd0"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">学年</p>
             <b-form-select
@@ -44,14 +31,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #e1bee7"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">時限</p>
             <b-form-select
@@ -64,15 +44,8 @@
           </b-card>
         </v-col>
       </v-row>
-      <v-row class="grey lighten-3" style="height: 200px">
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #ffcdd2"
-        >
+      <v-row class="lighten-3" style="height: 200px">
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">曜日</p>
             <b-form-select
@@ -84,14 +57,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #f8bbd0"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">専攻</p>
             <b-form-select
@@ -103,14 +69,7 @@
             </div>
           </b-card>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #e1bee7"
-        >
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">講師</p>
             <div>
@@ -128,15 +87,8 @@
           </b-card>
         </v-col>
       </v-row>
-      <v-row class="grey lighten-3" style="height: 200px">
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          xl="3"
-          style="background-color: #e1bee7"
-        >
+      <v-row class="lighten-3" style="height: 200px">
+        <v-col cols="12" sm="8" md="6" lg="4" xl="3">
           <b-card title="">
             <p class="text-3xl">科目名</p>
             <div>
@@ -160,15 +112,18 @@
         class="ma-2"
         :loading="loading"
         :disabled="loading"
-        @click="loader = 'loading'"
+        @click="Clicksubmit(), lectureGetParams()"
       >
-        Accept Terms
+        検索
       </v-btn>
+      <!-- <button @click="urlpush()">push</button> -->
     </div>
+    </v-app>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -176,10 +131,10 @@ export default {
       gradeSelected: null,
       gradeOptions: [
         { value: null, text: "Please select an option" },
-        { value: "1年", text: "1年" },
-        { value: "2年", text: "2年" },
-        { value: "3年", text: "3年" },
-        { value: "4年", text: "4年" },
+        { value: "1", text: "1年" },
+        { value: "2", text: "2年" },
+        { value: "3", text: "3年" },
+        { value: "4", text: "4年" },
       ],
       timeSelected: null,
       timeOptions: [
@@ -204,23 +159,23 @@ export default {
       DepartmentSelected: null,
       DepartmentOptions: [
         { value: null, text: "Please select an option" },
-        { value: "電気工学専攻", text: "電気工学専攻" },
-        { value: "電子情報工学専攻", text: "電子情報工学専攻" },
-        { value: "応用化学専攻", text: "応用化学専攻" },
-        { value: "バイオ環境化学専攻", text: "バイオ環境化学専攻" },
-        { value: "機械工学専攻", text: "機械工学専攻" },
-        { value: "機械創造工学専攻", text: "機械創造工学専攻" },
-        { value: "土木工学専攻", text: "土木工学専攻" },
-        { value: "防災土木工学専攻", text: "防災土木工学専攻" },
-        { value: "建築学専攻", text: "建築学専攻" },
-        { value: "住居デザイン専攻", text: "住居デザイン専攻" },
-        { value: "経営情報システム専攻", text: "経営情報システム専攻" },
-        { value: "スポーツマネジメント専攻", text: "スポーツマネジメント専攻" },
-        { value: "コンピュータシステム専攻", text: "コンピュータシステム専攻" },
-        { value: "メディア情報専攻", text: "メディア情報専攻" },
+        { value: "ee", text: "電気工学専攻" },
+        { value: "ev", text: "電子情報工学専攻" },
+        { value: "cc", text: "応用化学専攻" },
+        { value: "cb", text: "バイオ環境化学専攻" },
+        { value: "mm", text: "機械工学専攻" },
+        { value: "mp", text: "機械創造工学専攻" },
+        { value: "dd", text: "土木工学専攻" },
+        { value: "ds", text: "防災土木工学専攻" },
+        { value: "fa", text: "建築学専攻" },
+        { value: "fl", text: "住居デザイン専攻" },
+        { value: "ht", text: "経営情報システム専攻" },
+        { value: "hh", text: "スポーツマネジメント専攻" },
+        { value: "kk", text: "コンピュータシステム専攻" },
+        { value: "kx", text: "メディア情報専攻" },
       ],
-      teacherText: "",
-      lectureName: "",
+      teacherText: null,
+      lectureName: null,
       loader: null,
       loading: false,
     };
@@ -231,6 +186,53 @@ export default {
       this[l] = !this[l];
       setTimeout(() => (this[l] = false), 1500);
       this.loader = null;
+    },
+  },
+  methods: {
+    Clicksubmit: function () {
+      this.$store.dispatch("setLecture", {
+        grade: this.gradeSelected,
+        semester: this.semester,
+        Department: this.DepartmentSelected,
+        dayofweek: this.dayofweekSelected,
+        time: this.timeSelected,
+        teacher: this.teacherText,
+        lectureName: this.lectureName,
+      });
+    },
+    lectureGetParams: function () {
+      axios
+        .get(
+          "http://localhost:3030/lecture" +
+            "?grade=" +
+            this.$store.state.p.lectures[0].grade +
+            "&semester=" +
+            this.$store.state.p.lectures[0].semester +
+            "&Department=" +
+            this.$store.state.p.lectures[0].Department +
+            "&dayofweek=" +
+            this.$store.state.p.lectures[0].dayofweek +
+            "&time=" +
+            this.$store.state.p.lectures[0].time +
+            "&teacher=" +
+            this.$store.state.p.lectures[0].teacher +
+            "&lectureName=" +
+            this.$store.state.p.lectures[0].lectureName
+        )
+        .then((res) => {
+          console.log(res);
+          console.log(res.data.length);
+          this.$store.commit("removeLectureList");
+
+          for (var i = 0; i < res.data.length; i++) {
+            this.$store.commit("addGetLectureList", res.data[i]);
+          }
+          this.$router.push("/lectures");
+        })
+        .catch(function (error) {
+          console.log(error);
+          this.$router.push("/lectures");
+        });
     },
   },
 };

@@ -19,14 +19,7 @@
             >
           </router-link>
         </li>
-        <li class="border-t md:border-none">
-          <router-link to="/search">
-            <a
-              class="block md:inline-block px-4 py-3 hover:text-red-400 no-underline hover:no-underline"
-              >{{ searchVueName }}</a
-            >
-          </router-link>
-        </li>
+        <li class="border-t md:border-none"></li>
       </ul>
     </nav>
     <router-view />
@@ -38,12 +31,12 @@ export default {
   data() {
     return {
       topPageName: "hackathon_team_b",
-      homeVueName: "ボタン検索",
-      searchVueName: "キーワード検索",
+      homeVueName: "検索トップ",
     };
   },
 };
 </script>
 
 <style>
+
 </style>

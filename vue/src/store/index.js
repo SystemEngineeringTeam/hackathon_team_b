@@ -1,47 +1,79 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
+//import axios from "axios";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const postData = {
   state: {
     lectures: [
       {
-        Grade: "",
+        grade: "",
+        semester: "",
         Department: "",
-        Semester: "",
-        Time: "",
-        Teacher: "",
-        LectureName: "",
+        dayofweek: "",
+        time: "",
+        teacher: "",
+        lectureName: "",
       },
     ],
   },
   mutations: {
-    setGrade(state, grade) {
-      state.lectures.Grade = grade;
+    setALecture(state, lecture) {
+      state.lectures[0] = lecture;
     },
   },
   actions: {
+    setLecture(context, lecture) {
+      context.commit("setALecture", lecture);
+    },
+    /*
     async postLecture(context) {
       await axios
         .post(
           process.env.VUE_APP_API_LECTURE,
           JSON.stringify(context.state.lectures)
         )
-        .then(() => {})
+        .then((res) => {
+          context.commit("addGetLectureList", res.data);
+        })
         .catch(() => {
-          console.log("lectureのpostに失敗しました🥺");
+          console.log("lectureのpostに失敗しました");
         });
     },
-    async getLecture(context) {
-      await axios
-        .get(process.env.VUE_APP_API_LECTURE)
-        .then((res) => {})
-        .catch(() => {
-          console.log("lectureのgetに失敗しました🥺");
-        });
+    */
+  },
+};
+
+const getData = {
+  state: {
+    getLectureList: [
+      {
+        department: "",
+        semester: "",
+        dayofweek: "",
+        time: "",
+        teacher: "",
+        lectureName: "",
+        grade: "",
+        reviewStarAverage: "",
+        indexLectureNumber: "",
+      },
+    ],
+  },
+  mutations: {
+    addGetLectureList(state, lectureList) {
+      state.getLectureList.push(lectureList);
+    },
+    removeLectureList(state) {
+      state.getLectureList.splice(0);
     },
   },
-  modules: {},
+};
+
+export default new Vuex.Store({
+  modules: {
+    p: postData,
+    g: getData,
+  },
 });
