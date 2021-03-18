@@ -7,9 +7,12 @@ create table if not exists lectures
 
 insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','前期','月曜','3限','高木健太郎','日本国憲法');
 insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','火曜','4限','中村','情報数学');
-
-
-
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kx','後期','水曜','3限','秦','ネットワーク');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','木曜','5限','鈴木','データベース');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','金曜','2限','福田','アーキテクチャ');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','月曜','1限','外山','幾何学');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','火曜','2限','山口','オブジェクト志向');
+insert into lectures (department,semester,dayofweek,timed,teacher,lectureName) values ('kk','後期','水曜','3限','松田','モバイル');
 
 create table if not exists grade
 (grade varchar(10),indexLectureNumber INT);
@@ -22,16 +25,23 @@ insert into grade values (1,2);
 insert into grade values (2,2);
 insert into grade values (3,2);
 insert into grade values (4,2);
+insert into grade values (2,3);
+insert into grade values (2,4);
+insert into grade values (2,5);
+insert into grade values (4,5);
+insert into grade values (4,6);
+insert into grade values (2,7);
+insert into grade values (4,7);
+insert into grade values (4,8);
 
 
 
 
 
-insert into lectures values ('1', 'kk','後期','火曜','4限','中村','情報数学',2);
+
 
 create table if not exists reviews
 (indexLectureNumber int,reviewStar int,sentence varchar(100),id INT AUTO_INCREMENT,PRIMARY KEY (id));
-
 
 insert into reviews (indexLectureNumber,reviewStar,sentence) values(1,5,'金を払えば単位がもらえる');
 insert into reviews (indexLectureNumber,reviewStar,sentence) values (2,1,'教科書の内容が理解できない');
