@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"with_b/api"
 	"with_b/db"
@@ -12,7 +13,10 @@ func main() {
 	// db.CallRectures()
 	// db.CallReview(1)
 	// db.CalculateStarAvarage(1)
-	db.CallRectures("1","kk","前期","月曜","3限","高木","日本")
+
+	fmt.Println(db.CallRectures("1","kk","","","","","日本"))
+	// fmt.Println(db.CallRectures("3","kk","後期","火曜","4限","中村","情報"))
+
 	http.HandleFunc("/lecture", api.Lectures)
 	http.HandleFunc("/review",api.Review)
 

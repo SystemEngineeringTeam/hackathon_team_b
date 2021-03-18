@@ -22,25 +22,26 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 
 	//クエリパラメータ
-	params := r.URL.Query()
+	// params := r.URL.Query()
 
 	//Get
 	if r.Method == http.MethodGet {
 
-		params["department"][0]=""
-		params["semester"][0]=""
-		params["dayofweek"][0]=""
-		params["time"][0]=""
-		params["teacher"][0]=""
-		params["lectureName"][0]=""
+		// params["department"][0]=""
+		// params["semester"][0]=""
+		// params["dayofweek"][0]=""
+		// params["time"][0]=""
+		// params["teacher"][0]=""
+		// params["lectureName"][0]=""
 
-		_,ok:=params["grade"]
-		if ok{
-			params["grade"][0]=""
-			fmt.Println("okg")
-		}else{
-			fmt.Println("nog")
-		}
+		// _,ok:=params["grade"]
+		// if ok{
+		// 	params["grade"][0]=""
+		// 	fmt.Println("okg")
+		// }else{
+		// 	fmt.Println("nog")
+		// }
+
 		// if _,ok:=params["semester"];!ok{
 		// 	params["semester"][0]=""
 		// 	fmt.Println("No se")
@@ -73,6 +74,7 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Println("bye")
 		lectures,err:=db.CallRectures("1","kk","前期","月曜","３限","高木健太郎","日本")
+
 		// http://localhost:8080/lecture?grade=1&"department=kk&semester=前期&dayofweek=月曜&time=３限&teacher=高木&lectureName=日本
 		// fmt.Println(params["grade"][0])
 		// fmt.Println(params["department"][0])
@@ -81,7 +83,6 @@ func Lectures(w http.ResponseWriter, r *http.Request) {
 		// fmt.Println(params["time"][0])
 		// fmt.Println(params["teacher"][0])
 		// fmt.Println(params["lectureName"][0])
-
 
 		//エラー処理
 		if err != nil {

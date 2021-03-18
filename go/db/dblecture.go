@@ -64,7 +64,7 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 		sql=sql+"teacher like "+"'%"+te+"%'"+" AND "
 	}
 	if len(le)!=0{
-		sql=sql+"lectureName like "+"'%"+le+"%'"
+		sql=sql+"lectureName "+"'%"+le+"%'"
 	}
 
 	rows, err := db.Query(sql)
@@ -106,6 +106,7 @@ func CallRectures(gr string, de string, sem string, day string, ti string, te st
 			if tmpGrade==gr{
 				gradeFlag=true
 			}
+
 			gradeSlice=gradeSlice+tmpGrade+" "
 		}
 
