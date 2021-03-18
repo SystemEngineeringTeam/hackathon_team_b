@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"strconv"
 
@@ -18,7 +17,7 @@ type ReviewDetail struct {
 //CallReview はレビューの構造体のスライスを返す
 func CallReview(indexLectureNumber int) ([]ReviewDetail, error) {
 
-	db, err := sql.Open("mysql", "root:tako64tako@tcp(127.0.0.1:3306)/with_b")
+	db, err := sql.Open("mysql", "root@/with_b")
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -35,14 +34,17 @@ func CallReview(indexLectureNumber int) ([]ReviewDetail, error) {
 	ReviewDetails := make([]ReviewDetail, 0, 0)
 
 	for rows.Next() {
+
 		var indexLectureNumber int
 		var star int
 		var sentence string
 		var id int
+
 		if err := rows.Scan(&indexLectureNumber, &star, &sentence, &id); err != nil {
 			log.Print(err)
 			return nil, err
 		}
+
 		tmpReview := ReviewDetail{indexLectureNumber, star, sentence}
 
 		ReviewDetails = append(ReviewDetails, tmpReview)
@@ -98,15 +100,15 @@ func CalculateStarAvarage(indexLectureNumber int) (string, error) {
 
 //RegisterReview はレビューを登録する
 func RegisterReview(re ReviewDetail) error {
+
 	db, err := sql.Open("mysql", "root@/with_b")
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 	defer db.Close()
-	fmt.Println(re.ReviewStar)
 
-	_, err = db.Exec("INSERT INTO reviews (indexLectureNumber,reviewStar,sentence) VALUES (?,?,?)", re.IndexLectureNumber, re.ReviewStar, re.Contents)
+	_, err = db.Exec("INSERT INTO reviews (IndexLectureNumber,ReviewStar,sentence) VALUES (?,?,?)", re.IndexLectureNumber, re.ReviewStar, re.Contents)
 
 	if err != nil {
 		log.Println(err)
