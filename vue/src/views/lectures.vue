@@ -27,16 +27,16 @@
                     {{ Lists.reviewStarAverage }}
                   </div>
                 </v-row>
-                <div class="my-4 subtitle-1">ああああ</div>
-                <div>ああああ</div>
+                <div class="my-4 subtitle-1"></div>
+                <div></div>
               </v-card-text>
               <v-divider class="mx-4"></v-divider>
-              <v-card-title>ああああ</v-card-title>
+              <v-card-title></v-card-title>
               <v-card-actions>
                 <v-btn
                   color="deep-purple lighten-2"
                   text
-                  @click="reviewDetail(Lists.indexLectureNumber)"
+                  @click="reviewDetail(Lists.indexLectureNumber-1)"
                 >
                   レビューを見る
                 </v-btn>
@@ -73,8 +73,8 @@ export default {
     },
     sorted(){
       this.$store.state.g.getLectureList.sort(function(a,b){
-        if(a.reviewStarAverage < b.reviewStarAverage) return -1;
-        if(a.reviewStarAverage > b.reviewStarAverage) return 1;
+        if(a.reviewStarAverage > b.reviewStarAverage) return -1;
+        if(a.reviewStarAverage < b.reviewStarAverage) return 1;
         return 0;
       });
     }
