@@ -5,7 +5,7 @@
       <li v-for="review,i in $store.state.r.reviewList" :key="i">
         <v-card class="mx-auto m-6" min-width="300" max-width="700">
           <v-card-title>名無しさん</v-card-title>
-          <p>{{review.sentence}}</p>
+          <p class="ml-8 text-xl">{{review.sentence}}</p>
           <v-card-text>
             <v-row align="center" class="mx-0">
               <v-rating
@@ -19,9 +19,6 @@
               <div class="grey--text ml-4">{{review.reviewStar}}</div>
             </v-row>
           <div class="my-4 subtitle-1"></div>
-          <div>
-            {{ review.sentence }}
-          </div>
         </v-card-text>
         <v-divider class="mx-4"></v-divider>
         </v-card>
