@@ -3,13 +3,9 @@
     <v-btn @click="sorted()">評価が高い順にソート</v-btn>
     <v-app>
       <ul>
-        <li v-for="Lists,i in $store.state.g.getLectureList" :key="i">
+        <li v-for="(Lists, i) in $store.state.g.getLectureList" :key="i">
           <template>
-            <v-card
-              class="mx-auto my-12"
-              min-width="500"
-              max-width="700"
-            >
+            <v-card class="mx-auto my-12" min-width="500" max-width="700">
               <v-card-title
                 >{{ Lists.teacher }} {{ Lists.lectureName }}</v-card-title
               >
@@ -28,15 +24,19 @@
                   </div>
                 </v-row>
                 <div class="my-4 subtitle-1"></div>
-                <div></div>
+                <div>学年 : {{ Lists.grade }}</div>
+                <div>曜日 : {{ Lists.dayofweek }}</div>
+                <div>時限 : {{ Lists.time }}</div>
+                <div>専攻 : {{ Lists.department }}</div>
               </v-card-text>
+
               <v-divider class="mx-4"></v-divider>
               <v-card-title></v-card-title>
               <v-card-actions>
                 <v-btn
                   color="deep-purple lighten-2"
                   text
-                  @click="reviewDetail(Lists.indexLectureNumber-1)"
+                  @click="reviewDetail(Lists.indexLectureNumber - 1)"
                 >
                   レビューを見る
                 </v-btn>
@@ -53,7 +53,7 @@
 import axios from "axios";
 export default {
   methods: {
-    reviewDetail:function(index) {
+    reviewDetail: function (index) {
       axios
         .get(
           "http://localhost:3030/review?indexLectureNumber=" +
@@ -71,13 +71,13 @@ export default {
           this.$router.push("/review");
         });
     },
-    sorted(){
-      this.$store.state.g.getLectureList.sort(function(a,b){
-        if(a.reviewStarAverage > b.reviewStarAverage) return -1;
-        if(a.reviewStarAverage < b.reviewStarAverage) return 1;
+    sorted() {
+      this.$store.state.g.getLectureList.sort(function (a, b) {
+        if (a.reviewStarAverage > b.reviewStarAverage) return -1;
+        if (a.reviewStarAverage < b.reviewStarAverage) return 1;
         return 0;
       });
-    }
+    },
   },
 };
 </script>
